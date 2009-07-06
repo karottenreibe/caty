@@ -3,9 +3,10 @@
 require 'rubygems'
 require 'hoe'
 
-Hoe.spec('odin') do |p|
-  p.developer('Fabian Streitel', 'karottenreibe@gmail.com')
-  p.remote_rdoc_dir = 'rdoc'
+Hoe.spec('sif') do |p|
+    p.version = '0.0.1'
+    p.developer('Fabian Streitel', 'karottenreibe@gmail.com')
+    p.remote_rdoc_dir = 'rdoc'
 end
 
 task :manifest do
