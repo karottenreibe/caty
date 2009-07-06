@@ -12,6 +12,7 @@ Classes
         -   has_many: GlobalOptions
     -   options
     -   global_options
+    -   odin_help(task_or_option)
 
 *   GlobalOption
     -   grep!(args)
