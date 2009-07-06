@@ -70,5 +70,12 @@ class Odin
     def global_options
     end
 
+    #
+    # Displays the auto-generated help for all tasks,
+    # options and global options known to Odin.
+    #
+    def odin_help command = nil
+    end
+
 end
 
