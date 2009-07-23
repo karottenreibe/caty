@@ -8,6 +8,8 @@
 #
 class Sif::GlobalOption < Sif::Option
 
+    include Sif::HasDescription
+
     private
 
     def prefix

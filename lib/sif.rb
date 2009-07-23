@@ -22,6 +22,24 @@
 #
 class Sif
 
+    #
+    # Returns the options for the called task.
+    #
+    attr_accessor :task_options
+
+    #
+    # Returns the global options for this invocation.
+    #
+    attr_accessor :global_options
+
+    #
+    # Displays the auto-generated help for all tasks,
+    # options and global options known to Sif.
+    #
+    def sif_help( command = nil )
+        #TODO implement
+    end
+
     class << self
 
         #
@@ -30,23 +48,30 @@ class Sif
         #     Subclass.start arguments_array
         #     Subclass.start
         #
+        # Returns 0 on success, a negative Integer when
+        # an ArgumentError is detected.
+        # 
         def start( args = ARGV )
             sif = self.new
             sif.global_options = @global_options.grep!(args)
             
-            task_name = args.delete_at(0)
-            task = @tasks[task_name] || @tasks[:default]
-
-            if task.nil?
-                raise Sif::NoSuchTaskError.new("There is no task named `#{task_name}'")
-            else
-                sif.options = task.parse!(args)
-                task.execute(sif)
+            begin
+                task_name = args.delete_at(0)
+                execute(task_name)
+                return 0
+            rescue ArgumentError => e
+                #todo verify that this is actually the task throwing the error
+                $stdout.puts "Bad arguments for task #{task.name}."
+                $stdout.puts "Usage: #{task.usage}" unless task.usage.nil?
+                return 1
+            rescue Sif::NoSuchTaskError, Sif::OptionArgumentError => e
+                $stdout.puts e.message
+                return 2
             end
         end
 
         #
-        # Adds options for the current task.
+        # Adds options for the following task.
         #
         #     task_options 'option_name' => default, 'option2' ...
         #
@@ -59,13 +84,19 @@ class Sif
 
         #
         # Adds global options.
+        # The first option will be decorated with the last description
+        # defined via #desc().
         #
-        #     global_options 'option_name' => default, 'option2', ...
+        #     global_options 'option_name' => default, 'option2' ...
         #
         def global_options( options_hash )
             @global_options ||= Array.new
             options_hash.each do |name,default|
-                @global_options << Sif::GlobalOption.new(name, default)
+                option = Sif::GlobalOption.new(name, default)
+                option.description = @description
+
+                @global_options << option
+                reset_decorators
             end
         end
 
@@ -84,6 +115,22 @@ class Sif
         end
 
         #
+        # Decorates the next definition with a description.
+        #
+        def desc( description )
+            @description = description
+        end
+
+        #
+        # Decorates the next definition with a description.
+        #
+        def usage( usage )
+            @usage = usage
+        end
+
+        private
+
+        #
         # Metaprogramming.
         # See Module#method_added
         # Creates a new task, if the method that was added was
@@ -95,38 +142,51 @@ class Sif
             # only add public methods as tasks
             if self.public_instance_methods.include?(name)
                 method = self.public_instance_method(name)
-                @tasks[name] = Sif::Task.new(name, method, @task_options) if @tasks[name].nil?
-                @task_options = Array.new
+                task = Sif::Task.new(name, method, @task_options) if @tasks[name].nil?
+                task.description = @description
+                task.usage = @usage
+
+                @tasks[name] = task
+                reset_decorators
+            end
+        end
+        
+        #
+        # Resets the decorators applied via #desc(),
+        # #usage() and #task_options.
+        #
+        def reset_decorators
+            @task_options = Array.new
+            @description = nil
+            @usage = nil
+        end
+
+        #
+        # Does the actual work of executing the task for #start().
+        #
+        def execute( task_name )
+            task = @tasks[task_name] || @tasks[:default]
+
+            case task
+            when nil
+                raise Sif::NoSuchTaskError, "There is no task named `#{task_name}'"
+            when Sif::Indirection
+                execute(task.target)
+            else
+                sif.options = task.parse!(args)
+                task.execute(sif)
             end
         end
 
     end
 
-    #
-    # Returns the options for the called task.
-    #
-    attr_accessor :options
-
-    #
-    # Returns the global options for this invocation.
-    #
-    attr_accessor :global_options
-
-    #
-    # Displays the auto-generated help for all tasks,
-    # options and global options known to Sif.
-    #
-    def sif_help( command = nil )
-        #TODO
-    end
-
 end
 
-class Sif::NoSuchTaskError < ArgumentError; end
-
+require 'sif/errors'
 require 'sif/ordered_hash'
+require 'sif/has_description'
 require 'sif/task'
 require 'sif/option'
 require 'sif/global_option'
-require 'sif/indirection'
+require 'sif/indirecton'
 

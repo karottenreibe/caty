@@ -6,17 +6,84 @@
 # The sum of all options parsed is accessible
 # via the Sif#options() method.
 #
-Sif::Option = Struct.new(:name, :default, :description) do
+class Sif::Option
+
+    attr_reader :name
+
+    #
+    # Creates a new option with the given name and default value.
+    #
+    # default may be one of the following:
+    # - :boolean
+    #   nil is the default, any given argument will be coerced
+    #   into a boolean value.
+    # - :string
+    #   nil is the default, any given argument will be coerced
+    #   into a string value.
+    # - :integer
+    #   nil is the default, any given argument will be coerced
+    #   into a integer value.
+    # - a Integer, String or Boolean value
+    #   the passed value is the default value, any given argument
+    #   will be coerced into the given type.
+    # - any other value will be treated as if a String had been
+    #   given.
+    #TODO lambdas
+    #
+    # If the deduced argument type is boolean, not giving an argument
+    # is interpreted as giving true as the argument.
+    # Else, a MissingOptionArgumentError is thrown.
+    #
+    def initialize name, default
+        @name = name
+
+        case default
+        when :boolean
+            @converter = BooleanConverter.new
+            @default = nil
+        when :integer
+            @converter = IntegerConverter.new
+            @default = nil
+        when :string
+            @converter = StringConverter.new
+            @default = nil
+        when true, false
+            @converter = BooleanConverter.new
+            @default = default
+        when Integer
+            @converter = IntegerConverter.new
+            @default = default
+        else
+            @converter = StringConverter.new
+            @default = default
+        end
+    end
 
     #
     # Tries to remove the option from the args.
     # Returns the value grepped for this option.
     #
     def grep! args
+        rex = %r{^#{self.prefix}#{self.name}(?:=(.+))?$}
+        args.each do |arg|
+            if rex =~ arg
+                return @converter.convert($1)
+            end
+        end
+
+        @default
+    rescue Sif::OptionArgumentError  => err
+        raise returning(err) do |e|
+            e.option = @name
+        end
     end
 
     private
 
+    #
+    # Defines the prefix of this option.
+    # May be overwritten by subclasses.
+    #
     def prefix
         '-'
     end
