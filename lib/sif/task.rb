@@ -43,5 +43,21 @@ class Sif::Task
         @instance_method.bind(context).call(*@args)
     end
 
+    #
+    # Returns a string representation of the task and its
+    # options to be used by the help system.
+    #
+    def to_s( ljust = nil )
+        ljust ||= @name.length
+
+        returning( @name.ljust(ljust) ) do |output|
+            output << " #{@usage}" unless @usage.nil?
+
+            @options.each do |option|
+                output << " #{option}"
+            end
+        end
+    end
+
 end
 

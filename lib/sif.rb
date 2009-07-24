@@ -32,14 +32,6 @@ class Sif
     #
     attr_accessor :global_options
 
-    #
-    # Displays the auto-generated help for all tasks,
-    # options and global options known to Sif.
-    #
-    def sif_help( command = nil )
-        #TODO implement
-    end
-
     class << self
 
         #
@@ -126,6 +118,14 @@ class Sif
         #
         def usage( usage )
             @usage = usage
+        end
+
+        #
+        # Displays the auto-generated help for all tasks,
+        # options and global options known to Sif.
+        #
+        def help( command = nil )
+            #TODO implement
         end
 
         private
