@@ -48,9 +48,7 @@ class Sif::Task
     # Returns a string representation of the task and its
     # options to be used by the help system.
     #
-    def to_s( ljust = nil )
-        ljust ||= @name.length
-
+    def to_s( ljust = 0 )
         returning( @name.ljust(ljust) ) do |output|
             output << " #{@usage}" unless @usage.nil?
 
