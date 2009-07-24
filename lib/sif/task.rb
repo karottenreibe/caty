@@ -6,6 +6,7 @@
 #
 class Sif::Task
 
+    include Sif::Helpers
     include Sif::HasDescription
 
     attr_accessor :name, :usage

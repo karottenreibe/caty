@@ -8,6 +8,8 @@
 #
 class Sif::Option
 
+    include Sif::Helpers
+
     attr_reader :name
 
     #

@@ -182,6 +182,7 @@ class Sif
 
 end
 
+require 'sif/helpers'
 require 'sif/errors'
 require 'sif/ordered_hash'
 require 'sif/has_description'

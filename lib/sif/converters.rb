@@ -1,5 +1,8 @@
 
 class Sif::BooleanConverter
+
+    include Sif::Helpers
+
     def convert( value )
         case value
         when nil, 'true' then true
@@ -13,6 +16,9 @@ class Sif::BooleanConverter
 end
 
 class Sif::StringConverter
+
+    include Sif::Helpers
+
     def convert( value )
         case value
         when nil
@@ -25,6 +31,9 @@ class Sif::StringConverter
 end
 
 class Sif::IntegerConverter
+
+    include Sif::Helpers
+
     def convert( value )
         case value
         when %r{^[0-9]+$} then value.to_i
