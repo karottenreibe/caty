@@ -27,13 +27,8 @@ class Sif::Task
     # options.
     #
     def parse!( args )
-        returning(Hash.new) do |options|
-            @options.each do |option|
-                options[option.name] = option.grep!
-            end
-
-            @args = args
-        end
+        @args = args
+        @options.grep!(args)
     end
 
     #

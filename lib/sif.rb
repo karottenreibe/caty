@@ -68,7 +68,7 @@ class Sif
         #     task_options 'option_name' => default, 'option2' ...
         #
         def task_options( options_hash )
-            @task_options ||= Array.new
+            @task_options ||= Sif::OptionsArray.new
             options_hash.each do |name,default|
                 @task_options << Sif::Option.new(name, default)
             end
@@ -82,7 +82,7 @@ class Sif
         #     global_options 'option_name' => default, 'option2' ...
         #
         def global_options( options_hash )
-            @global_options ||= Array.new
+            @global_options ||= Sif::OptionsArray.new
             options_hash.each do |name,default|
                 option = Sif::GlobalOption.new(name, default)
                 option.description = @description
@@ -97,12 +97,12 @@ class Sif
         #
         #     map 'alias' => :task_name
         #     map %w{alias1 alias2} => :task_name
-        #     map :default => :task_name
+        #     map :default => 'task_name'
         #
         def map( mapping_hash )
             @tasks ||= Sif::OrderedHash.new
             mapping_hash.each do |mapping,target|
-                @tasks[mapping] = Sif::Indirection.new(target)
+                @tasks[mapping] = Sif::Indirection.new(target.to_s)
             end
         end
 
@@ -163,7 +163,7 @@ class Sif
             when Sif::Indirection
                 execute(task.target)
             else
-                sif.options = task.parse!(args)
+                sif.task_options = task.parse!(args)
                 task.execute(sif)
             end
         end
@@ -177,8 +177,9 @@ Sif.extend(Sif::HelpSystem)
 
 require 'sif/helpers'
 require 'sif/errors'
-require 'sif/ordered_hash'
 require 'sif/has_description'
+require 'sif/ordered_hash'
+require 'sif/options_array'
 require 'sif/task'
 require 'sif/option'
 require 'sif/global_option'
