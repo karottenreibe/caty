@@ -68,7 +68,7 @@ class Sif
         #     task_options 'option_name' => default, 'option2' ...
         #
         def task_options( options_hash )
-            @task_options ||= Sif::OptionsArray.new
+            @task_options ||= Sif::OptionArray.new
             options_hash.each do |name,default|
                 @task_options << Sif::Option.new(name, default)
             end
@@ -82,7 +82,7 @@ class Sif
         #     global_options 'option_name' => default, 'option2' ...
         #
         def global_options( options_hash )
-            @global_options ||= Sif::OptionsArray.new
+            @global_options ||= Sif::OptionArray.new
             options_hash.each do |name,default|
                 option = Sif::GlobalOption.new(name, default)
                 option.description = @description
@@ -179,9 +179,9 @@ require 'sif/helpers'
 require 'sif/errors'
 require 'sif/has_description'
 require 'sif/ordered_hash'
-require 'sif/options_array'
+require 'sif/option_array'
 require 'sif/task'
 require 'sif/option'
 require 'sif/global_option'
-require 'sif/indirecton'
+require 'sif/indirection'
 
