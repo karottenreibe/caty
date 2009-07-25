@@ -6,7 +6,7 @@ class TestSif < Sif
     global_options 'booleanoption' => false, 'stringoption' => 'uiae',
         'integeroption' => 42
 
-    map :default => 'argtask'
+    map :default => 'task1'
     def task1 arg
     end
 
@@ -28,28 +28,29 @@ describe 'Sif' do
         tasks = TestSif.tasks
         tasks.length.should.be.equal 4
 
-        tasks['argtask'].should.not.be.nil
-        tasks['argtask'].name.should.be.equal 'task1'
+        tasks['task1'].should.not.be.nil
+        tasks['task1'].name.should.be.equal 'task1'
 
         tasks['task2'].should.not.be.nil
         tasks['task2'].name.should.be.equal 'task2'
 
         tasks['mappedtask'].should.not.be.nil
-        tasks['mappedtask'].name.should.be.equal 'mappedtask'
         tasks['mappedtask'].target.should.be.equal 'task2'
 
         tasks[:default].should.not.be.nil
         tasks[:default].target.should.be.equal 'task1'
-        tasks[:default].name.should.be.equal :default
     end
 
     it 'should have global options' do
         gopts = TestSif.global_options
         gopts.length.should.be.equal 3
+        gopts.sort! do |a,b|
+            a.name <=> b.name
+        end
 
-        gopts['integer'].should.not.be.nil
-        gopts['boolean'].should.not.be.nil
-        gopts['string'].should.not.be.nil
+        gopts[0].name.should.be.equal 'booleanoption'
+        gopts[1].name.should.be.equal 'integeroption'
+        gopts[2].name.should.be.equal 'stringoption'
     end
 
     it 'should have local options' do
