@@ -3,10 +3,6 @@ require 'sif'
 
 class TestSif < Sif
 
-    class << self
-        attr_accessor :tasks, :global_options
-    end
-
     global_options 'booleanoption' => false, 'stringoption' => 'uiae',
         'integeroption' => 42
 
@@ -18,6 +14,10 @@ class TestSif < Sif
     task_options 'stringoption' => :string, 'integeroption' => :integer,
         'booleanoption' => :boolean
     def task2
+    end
+
+    class << self
+        attr_accessor :tasks, :global_options
     end
 
 end

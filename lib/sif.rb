@@ -131,7 +131,7 @@ class Sif
 
             # only add public methods as tasks
             if self.public_instance_methods.include?(name)
-                method = self.public_instance_method(name)
+                method = self.instance_method(name)
                 task = Sif::Task.new(name, method, @task_options) if @tasks[name].nil?
                 task.description = @description
                 task.usage = @usage
@@ -182,6 +182,7 @@ require 'sif/ordered_hash'
 require 'sif/option_array'
 require 'sif/task'
 require 'sif/option'
+require 'sif/converters'
 require 'sif/global_option'
 require 'sif/indirection'
 

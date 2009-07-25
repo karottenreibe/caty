@@ -41,22 +41,22 @@ class Sif::Option
 
         case default
         when :boolean
-            @converter = BooleanConverter.new
+            @converter = Sif::BooleanConverter.new
             @default = nil
         when :integer
-            @converter = IntegerConverter.new
+            @converter = Sif::IntegerConverter.new
             @default = nil
         when :string
-            @converter = StringConverter.new
+            @converter = Sif::StringConverter.new
             @default = nil
         when true, false
-            @converter = BooleanConverter.new
+            @converter = Sif::BooleanConverter.new
             @default = default
         when Integer
-            @converter = IntegerConverter.new
+            @converter = Sif::IntegerConverter.new
             @default = default
         when String
-            @converter = StringConverter.new
+            @converter = Sif::StringConverter.new
             @default = default
         else
             raise ArgumentError,
