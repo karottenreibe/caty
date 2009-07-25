@@ -55,9 +55,12 @@ class Sif::Option
         when Integer
             @converter = IntegerConverter.new
             @default = default
-        else
+        when String
             @converter = StringConverter.new
             @default = default
+        else
+            raise ArgumentError,
+                'Only boolean, string and integer values or :boolean, :integer, :string allowed.'
         end
     end
 
@@ -66,7 +69,7 @@ class Sif::Option
     # Returns the value grepped for this option.
     #
     def grep! args
-        rex = %r{^#{self.prefix}#{self.name}(?:=(.+))?$}
+        rex = %r{^#{self.prefix}#{@name}(?:=(.+))?$}
         args.each do |arg|
             if rex =~ arg
                 return @converter.convert($1)
@@ -78,6 +81,16 @@ class Sif::Option
         raise returning(err) do |e|
             e.option = @name
         end
+    end
+
+    #
+    # Returns a string repesentation of the option
+    # to be used by the help system.
+    #
+    def to_s
+        "[#{self.prefix}#{@name}=#{
+            @default.nil? ? '' : @default.inspect
+        }]"
     end
 
     private
