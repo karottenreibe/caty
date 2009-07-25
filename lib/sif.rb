@@ -121,22 +121,12 @@ class Sif
         end
 
         #
-        # Displays the auto-generated help for all tasks,
-        # options and global options known to Sif.
-        #
-        def help( command = nil )
-            #TODO implement
-        end
-
-        private
-
-        #
         # Metaprogramming.
         # See Module#method_added
         # Creates a new task, if the method that was added was
         # public.
         #
-        def method_added meth
+        def method_added( meth )
             name = meth.to_s
 
             # only add public methods as tasks
@@ -181,6 +171,9 @@ class Sif
     end
 
 end
+
+require 'sif/help_system'
+Sif.extend(Sif::HelpSystem)
 
 require 'sif/helpers'
 require 'sif/errors'

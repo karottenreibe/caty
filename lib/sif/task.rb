@@ -45,11 +45,15 @@ class Sif::Task
     end
 
     #
-    # Returns a string representation of the task and its
+    # Returns an array of the string representation of the task and its
     # options to be used by the help system.
     #
-    def to_s( ljust = 0 )
-        returning( @name.ljust(ljust) ) do |output|
+    def to_help
+        [ self.to_s , self.short_description, self.description ]
+    end
+
+    def to_s
+        returning(@name) do |output|
             output << " #{@usage}" unless @usage.nil?
 
             @options.each do |option|

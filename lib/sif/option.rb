@@ -83,10 +83,6 @@ class Sif::Option
         end
     end
 
-    #
-    # Returns a string repesentation of the option
-    # to be used by the help system.
-    #
     def to_s
         "[#{self.prefix}#{@name}=#{
             @default.nil? ? '' : @default.inspect
