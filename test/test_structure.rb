@@ -26,26 +26,26 @@ describe 'Sif' do
 
     it 'should have tasks and mappings' do
         tasks = TestSif.tasks
-        tasks.length.should.be 4
+        tasks.length.should.be.equal 4
 
         tasks['argtask'].should.not.be.nil
-        tasks['argtask'].name.should.be 'task1'
+        tasks['argtask'].name.should.be.equal 'task1'
 
         tasks['task2'].should.not.be.nil
-        tasks['task2'].name.should.be 'task2'
+        tasks['task2'].name.should.be.equal 'task2'
 
         tasks['mappedtask'].should.not.be.nil
-        tasks['mappedtask'].name.should.be 'mappedtask'
-        tasks['mappedtask'].target.should.be 'task2'
+        tasks['mappedtask'].name.should.be.equal 'mappedtask'
+        tasks['mappedtask'].target.should.be.equal 'task2'
 
         tasks[:default].should.not.be.nil
-        tasks[:default].target.should.be 'task1'
-        tasks[:default].name.should.be :default
+        tasks[:default].target.should.be.equal 'task1'
+        tasks[:default].name.should.be.equal :default
     end
 
     it 'should have global options' do
         gopts = TestSif.global_options
-        gopts.length.should.be 3
+        gopts.length.should.be.equal 3
 
         gopts['integer'].should.not.be.nil
         gopts['boolean'].should.not.be.nil
@@ -53,13 +53,16 @@ describe 'Sif' do
     end
 
     it 'should have local options' do
-        opts = TestSif.tasks['task2'].options
+        opts = TestSif.tasks['task2'].instance_variable_get(:@options)
         opts.should.not.be.nil
-        opts.length.should.be 3
+        opts.length.should.be.equal 3
+        opts.sort! do |a,b|
+            a.name <=> b.name
+        end
 
-        opts[0].name.should.be 'stringoption'
-        opts[1].name.should.be 'integeroption'
-        opts[2].name.should.be 'booleanoption'
+        opts[0].name.should.be.equal 'booleanoption'
+        opts[1].name.should.be.equal 'integeroption'
+        opts[2].name.should.be.equal 'stringoption'
     end
 
 end
