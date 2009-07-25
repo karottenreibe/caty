@@ -52,10 +52,14 @@ class Sif
                 execute(task_name)
                 return 0
             rescue ArgumentError => e
-                #todo verify that this is actually the task throwing the error
-                $stdout.puts "Bad arguments for task #{task.name}."
-                $stdout.puts "Usage: #{task.to_s}"
-                return 1
+                # verify that this is actually the task throwing the error
+                if e.backtrace[0].end_with?("in `#{task_name}'") and e.backtrace[1].end_with?("in `start'")
+                    $stdout.puts "Bad arguments for task #{task.name}."
+                    $stdout.puts "Usage: #{task.to_s}"
+                    return 1
+                else
+                    raise
+                end
             rescue Sif::NoSuchTaskError, Sif::OptionArgumentError => e
                 $stdout.puts e.message
                 return 2
