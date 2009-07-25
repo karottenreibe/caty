@@ -7,7 +7,7 @@ class TestSif < Sif
         'integeroption' => 42
 
     map :default => 'task1'
-    def task1 arg
+    def task1
     end
 
     map 'mappedtask' => :task2

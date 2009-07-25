@@ -54,7 +54,7 @@ class Sif
             rescue ArgumentError => e
                 #todo verify that this is actually the task throwing the error
                 $stdout.puts "Bad arguments for task #{task.name}."
-                $stdout.puts "Usage: #{task.usage}" unless task.usage.nil?
+                $stdout.puts "Usage: #{task.to_s}"
                 return 1
             rescue Sif::NoSuchTaskError, Sif::OptionArgumentError => e
                 $stdout.puts e.message
