@@ -1,4 +1,6 @@
+require 'rubygems'
 require 'bacon'
+require 'facon'
 require 'sif'
 
 class TestSif < Sif
@@ -35,14 +37,28 @@ describe 'Sif' do
 
 end
 
-describe 'Task' do
+describe 'A Task' do
 
-    it 'should grep the task name' do
+    it 'should' do
     end
 
 end
 
-describe 'Option' do
+describe 'An OptionArray' do
+
+    it 'should grep' do
+        a = Sif::OptionArray.new
+        a << mock('beer', :grep! => 42, :name => 'beer')
+        a << mock('rootbeer', :grep! => 23, :name => 'rootbeer')
+
+        opts = a.grep!([])
+        opts.beer.should.equal 42
+        opts.rootbeer.should.equal 23
+    end
+
+end
+
+describe 'An Option' do
 
     it 'should return a default value' do
         args = %w{bar be cue sauce}
@@ -61,7 +77,9 @@ describe 'Option' do
     end
 
     it 'should complain on bad default value type' do
-        lambda { Sif::Option.new('beer', Object.new) }.should.raise ArgumentError
+        lambda {
+            Sif::Option.new('beer', Object.new)
+        }.should.raise ArgumentError
     end
 
     it 'should grep boolean values' do
