@@ -8,9 +8,9 @@ class Sif::BooleanConverter
         when nil, 'true' then true
         when 'false' then false
         else
-            raise returning(Sif::OptionArgumentError.new) do |e|
-                e.expected = 'true or false'
-            end
+            e = Sif::OptionArgumentError.new
+            e.expected = 'true or false'
+            raise e
         end
     end
 end
@@ -22,9 +22,9 @@ class Sif::StringConverter
     def convert( value )
         case value
         when nil
-            raise returning(Sif::OptionArgumentError.new) do |e|
-                e.expected = 'a string'
-            end
+            e = Sif::OptionArgumentError.new
+            e.expected = 'a string'
+            raise e
         else value
         end
     end
@@ -38,9 +38,9 @@ class Sif::IntegerConverter
         case value
         when %r{^[0-9]+$} then value.to_i
         else
-            raise returning(Sif::OptionArgumentError.new) do |e|
-                e.expected = 'an integer'
-            end
+            e = Sif::OptionArgumentError.new
+            e.expected = 'an integer'
+            raise e
         end
     end
 end

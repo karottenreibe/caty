@@ -65,6 +65,18 @@ describe 'Option' do
     end
 
     it 'should grep boolean values' do
+        %w{-beer=true -beer}.each do |option|
+            o = Sif::Option.new('beer', :boolean)
+            o.grep!([option]).should.be.true
+        end
+
+        o = Sif::Option.new('beer', :boolean)
+        o.grep!(%w{-beer=false}).should.be.false
+
+        lambda {
+            o = Sif::Option.new('beer', :boolean)
+            o.grep!(%w{-beer=shallow})
+        }.should.raise Sif::OptionArgumentError
     end
 
     it 'should grep string values' do

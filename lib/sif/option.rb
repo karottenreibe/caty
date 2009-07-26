@@ -77,10 +77,9 @@ class Sif::Option
         end
 
         @default
-    rescue Sif::OptionArgumentError  => err
-        raise returning(err) do |e|
-            e.option = @name
-        end
+    rescue Sif::OptionArgumentError  => e
+        e.option = @name
+        raise e
     end
 
     def to_s
