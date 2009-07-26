@@ -89,7 +89,7 @@ class Sif::Option
         }]"
     end
 
-    private
+    protected
 
     #
     # Defines the prefix of this option.

@@ -26,7 +26,7 @@ class Sif::GlobalOption < Sif::Option
         end
     end
 
-    private
+    protected
 
     def prefix
         '--'

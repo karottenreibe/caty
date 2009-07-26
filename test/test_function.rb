@@ -33,24 +33,44 @@ describe 'Sif' do
     it 'should handle default task invocation' do
     end
 
-    it 'should' do
-    end
-
-    it 'should' do
-    end
-
 end
 
 describe 'Task' do
 
-    it 'should' do
+    it 'should grep the task name' do
     end
 
 end
 
 describe 'Option' do
 
-    it 'should' do
+    it 'should return a default value' do
+        args = %w{bar be cue sauce}
+
+        %w{boolean string integer}.each do |type|
+            o = Sif::Option.new('beer', type.to_sym)
+            o.grep!(args).should.be.nil
+            args.length.should.be.equal 4
+        end
+
+        [true, 'coke', 42].each do |default|
+            o = Sif::Option.new('beer', default)
+            o.grep!(args).should.be.equal default
+            args.length.should.be.equal 4
+        end
+    end
+
+    it 'should complain on bad default value type' do
+        lambda { Sif::Option.new('beer', Object.new) }.should.raise ArgumentError
+    end
+
+    it 'should grep boolean values' do
+    end
+
+    it 'should grep string values' do
+    end
+
+    it 'should grep integer values' do
     end
 
 end
