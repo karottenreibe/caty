@@ -36,7 +36,7 @@ class Sif::IntegerConverter
 
     def convert( value )
         case value
-        when %r{^[0-9]+$} then value.to_i
+        when %r{^[+-]?[0-9]+$} then value.to_i
         else
             e = Sif::OptionArgumentError.new
             e.expected = 'an integer'

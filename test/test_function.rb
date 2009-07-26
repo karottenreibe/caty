@@ -80,9 +80,26 @@ describe 'Option' do
     end
 
     it 'should grep string values' do
+        o = Sif::Option.new('beer', :string)
+        o.grep!(%w{-beer=fine}).should.be.equal 'fine'
+
+        lambda {
+            o = Sif::Option.new('beer', :string)
+            o.grep!(%w{-beer})
+        }.should.raise Sif::OptionArgumentError
     end
 
     it 'should grep integer values' do
+        o = Sif::Option.new('beer', :integer)
+        o.grep!(%w{-beer=42}).should.be.equal 42
+
+        o = Sif::Option.new('beer', :integer)
+        o.grep!(%w{-beer=-23}).should.be.equal -23
+
+        lambda {
+            o = Sif::Option.new('beer', :integer)
+            o.grep!(%w{-beer})
+        }.should.raise Sif::OptionArgumentError
     end
 
 end
