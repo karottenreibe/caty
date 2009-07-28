@@ -3,34 +3,15 @@ require 'bacon'
 require 'facon'
 require 'sif'
 
-class TestSif < Sif
-
-    global_options 'booleanoption' => false, 'stringoption' => 'uiae',
-        'integeroption' => 42
-
-    task_options 'stringoption' => :string, 'integeroption' => :integer,
-        'booleanoption' => :boolean
-    map 'mappedtask' => :task1
-    map :default => 'task1'
-    def task1 *args
-        TestSif.args = args
-        TestSif.opts = opts
-        TestSif.gopts = gopts
-    end
-
-    class << self
-        attr_accessor :args, :opts, :gopts
-    end
-
-end
-
 describe 'Sif' do
+
+    DEFAULT_TESTER = mock('default')
 
     class SifTest < Sif
 
         map :default => :beer,
             'lager' => :beer
-        def beer arg
+        def beer arg = DEFAULT_TESTER
             arg.beer
         end
 
@@ -68,6 +49,8 @@ describe 'Sif' do
     end
 
     it 'should handle default task invocation' do
+        DEFAULT_TESTER.should.receive(:beer)
+        SifTest.start([])
     end
 
     it 'should not invoke private or protected methods' do
