@@ -26,13 +26,33 @@ end
 
 describe 'Sif' do
 
+    class SifTest < Sif
+        def beer arg
+            arg.beer
+        end
+
+        private
+
+        def wine arg
+            arg.wine
+        end
+    end
+
     it 'should pass arguments' do
+        tester = mock('tester')
+        tester.should.receive(:beer)
+        SifTest.start(['beer', tester])
     end
 
     it 'should handle mappings' do
     end
 
     it 'should handle default task invocation' do
+    end
+
+    it 'should not invoke private methods' do
+        tester = mock('tester')
+        tester.should.not.receive(:wine)
     end
 
 end

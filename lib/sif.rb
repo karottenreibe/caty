@@ -44,12 +44,14 @@ class Sif
         # an ArgumentError is detected.
         # 
         def start( args = ARGV )
+            initialize_instance
+
             sif = self.new
             sif.global_options = @global_options.grep!(args)
             
             begin
                 task_name = args.delete_at(0)
-                execute(task_name)
+                execute(sif, task_name, args)
                 return 0
             rescue ArgumentError => e
                 # verify that this is actually the task throwing the error
@@ -72,7 +74,8 @@ class Sif
         #     task_options 'option_name' => default, 'option2' ...
         #
         def task_options( options_hash )
-            @task_options ||= Sif::OptionArray.new
+            initialize_instance
+
             options_hash.each do |name,default|
                 @task_options << Sif::Option.new(name, default)
             end
@@ -86,7 +89,8 @@ class Sif
         #     global_options 'option_name' => default, 'option2' ...
         #
         def global_options( options_hash )
-            @global_options ||= Sif::OptionArray.new
+            initialize_instance
+
             options_hash.each do |name,default|
                 option = Sif::GlobalOption.new(name, default)
                 option.description = @description
@@ -104,7 +108,8 @@ class Sif
         #     map :default => 'task_name'
         #
         def map( mapping_hash )
-            @tasks ||= Sif::OrderedHash.new
+            initialize_instance
+
             mapping_hash.each do |mapping,target|
                 @tasks[mapping] = Sif::Indirection.new(target.to_s)
             end
@@ -131,6 +136,7 @@ class Sif
         # public.
         #
         def method_added( meth )
+            initialize_instance
             name = meth.to_s
 
             # only add public methods as tasks
@@ -156,9 +162,19 @@ class Sif
         end
 
         #
+        # Initializes the tasks, options and global options
+        # storage instance variables.
+        #
+        def initialize_instance
+            @task_options ||= Sif::OptionArray.new
+            @global_options ||= Sif::OptionArray.new
+            @tasks ||= Sif::OrderedHash.new
+        end
+
+        #
         # Does the actual work of executing the task for #start().
         #
-        def execute( task_name )
+        def execute( sif, task_name, args )
             task = @tasks[task_name] || @tasks[:default]
 
             case task
