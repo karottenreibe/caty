@@ -39,7 +39,23 @@ end
 
 describe 'A Task' do
 
-    it 'should' do
+    it 'should call its associated method and pass the arguments' do
+        context = mock('context')
+        meth = mock('method')
+        meth.should.receive(:call).with('beer')
+        meth.should.receive(:bind).with(context).and_return(meth)
+
+        t = Sif::Task.new('brew_beer', meth, mock('options', :grep! => nil))
+        t.parse!(%w{beer})
+        t.execute(context)
+    end
+
+    it 'let its options grep' do
+        options = mock('options')
+        options.should.receive(:grep!).with(%w{beer}).and_return(options)
+
+        t = Sif::Task.new('brew_beer', nil, options)
+        t.parse!(%w{beer}).should.equal options
     end
 
 end
@@ -48,8 +64,14 @@ describe 'An OptionArray' do
 
     it 'should grep' do
         a = Sif::OptionArray.new
-        a << mock('beer', :grep! => 42, :name => 'beer')
-        a << mock('rootbeer', :grep! => 23, :name => 'rootbeer')
+        mock1 = mock('beer', :name => 'beer')
+        mock2 = mock('rootbeer', :name => 'rootbeer')
+
+        mock1.should.receive(:grep!).with([]).and_return(42)
+        mock2.should.receive(:grep!).with([]).and_return(23)
+
+        a << mock1
+        a << mock2
 
         opts = a.grep!([])
         opts.beer.should.equal 42
