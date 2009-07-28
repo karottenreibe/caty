@@ -28,6 +28,8 @@ describe 'Sif' do
 
     class SifTest < Sif
 
+        map :default => :beer,
+            'lager' => :beer
         def beer arg
             arg.beer
         end
@@ -49,16 +51,20 @@ describe 'Sif' do
     def suppress_output
         $stdout = StringIO.new
         yield
+    ensure
         $stdout = STDOUT
     end
 
     it 'should pass arguments' do
-        tester = mock('tester')
+        tester = mock('beer')
         tester.should.receive(:beer)
         SifTest.start(['beer', tester])
     end
 
     it 'should handle mappings' do
+        tester = mock('lager')
+        tester.should.receive(:beer)
+        SifTest.start(['lager', tester])
     end
 
     it 'should handle default task invocation' do
@@ -66,11 +72,11 @@ describe 'Sif' do
 
     it 'should not invoke private or protected methods' do
         suppress_output do
-            tester = mock('tester')
+            tester = mock('punch')
             tester.should.not.receive(:punch)
             SifTest.start(['punch', tester])
 
-            tester = mock('tester')
+            tester = mock('wine')
             tester.should.not.receive(:wine)
             SifTest.start(['wine', tester])
         end

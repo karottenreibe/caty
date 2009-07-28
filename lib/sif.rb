@@ -175,13 +175,17 @@ class Sif
         # Does the actual work of executing the task for #start().
         #
         def execute( sif, task_name, args )
-            task = @tasks[task_name] || @tasks[:default]
+            if task_name.nil?
+                task = @tasks[:default]
+            else
+                task = @tasks[task_name]
+            end
 
             case task
             when nil
                 raise Sif::NoSuchTaskError, "There is no task named `#{task_name}'"
             when Sif::Indirection
-                execute(task.target)
+                execute(sif, task.target, args)
             else
                 sif.task_options = task.parse!(args)
                 task.execute(sif)
