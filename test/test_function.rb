@@ -27,8 +27,15 @@ end
 describe 'Sif' do
 
     class SifTest < Sif
+
         def beer arg
             arg.beer
+        end
+
+        protected
+
+        def punch arg
+            arg.punch
         end
 
         private
@@ -36,6 +43,13 @@ describe 'Sif' do
         def wine arg
             arg.wine
         end
+
+    end
+
+    def suppress_output
+        $stdout = StringIO.new
+        yield
+        $stdout = STDOUT
     end
 
     it 'should pass arguments' do
@@ -50,9 +64,16 @@ describe 'Sif' do
     it 'should handle default task invocation' do
     end
 
-    it 'should not invoke private methods' do
-        tester = mock('tester')
-        tester.should.not.receive(:wine)
+    it 'should not invoke private or protected methods' do
+        suppress_output do
+            tester = mock('tester')
+            tester.should.not.receive(:punch)
+            SifTest.start(['punch', tester])
+
+            tester = mock('tester')
+            tester.should.not.receive(:wine)
+            SifTest.start(['wine', tester])
+        end
     end
 
 end
