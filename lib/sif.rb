@@ -119,15 +119,8 @@ class Sif
         #
         # Decorates the next definition with a description.
         #
-        def desc( description )
-            @description = description
-        end
-
-        #
-        # Decorates the next definition with a description.
-        #
-        def usage( usage )
-            @usage = usage
+        def desc( usage, description )
+            @description, @usage = description, usage
         end
 
         private
