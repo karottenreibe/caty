@@ -109,15 +109,21 @@ class Sif
         #     map 'alias' => :task_name
         #     map %w{alias1 alias2} => :task_name
         #     map :default => 'task_name'
+        #     map :before => 'task_name'
+        #     map :after => 'task_name'
         #
         def map( mapping_hash )
             initialize_instance
 
-            mapping_hash.each do |mapping,target|
-                if [:before, :after].include?(mapping)
-                    @tasks[mapping] = Sif::DirectMapping.new(target.to_s)
-                else
-                    @tasks[mapping] = Sif::Indirection.new(target.to_s)
+            mapping_hash.each do |mappings,target|
+                mappings = [mappings] unless mappings.is_a?(Array)
+
+                mappings.each do |mapping|
+                    if [:before, :after].include?(mapping)
+                        @tasks[mapping] = Sif::DirectMapping.new(target.to_s)
+                    else
+                        @tasks[mapping] = Sif::Indirection.new(target.to_s)
+                    end
                 end
             end
         end
