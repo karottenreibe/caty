@@ -81,6 +81,7 @@ class Sif
                 @task_options << Sif::Option.new(name, default)
             end
         end
+        alias_method :task_option, :task_options
 
         #
         # Adds global options.
@@ -100,6 +101,7 @@ class Sif
                 reset_decorators
             end
         end
+        alias_method :global_option, :global_options
 
         #
         # Creates aliases for tasks.
@@ -117,10 +119,18 @@ class Sif
         end
 
         #
-        # Decorates the next definition with a description.
+        # Decorates the next definition with a description and
+        # optionally a usage string.
         #
-        def desc( usage, description )
-            @description, @usage = description, usage
+        #     desc 'usage info', 'long description'
+        #     desc 'long description'
+        #
+        def desc( usage, description = nil )
+            if description.nil?
+                @description = usage
+            else
+                @description, @usage = description, usage
+            end
         end
 
         private
