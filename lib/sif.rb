@@ -58,7 +58,8 @@ class Sif
                 return false
             rescue ArgumentError => e
                 # verify that this is actually the task throwing the error
-                if e.backtrace[0].end_with?("in `#{task_name}'") and e.backtrace[1].end_with?("in `start'")
+                if is_task_argument_error(e.backtrace, task_name)
+                    task = @tasks.find_task(task_name)
                     $stdout.puts "Bad arguments for task #{task.name}."
                     $stdout.puts "Usage: #{task.to_s}"
                     return false
@@ -129,6 +130,8 @@ class Sif
             @usage = usage
         end
 
+        private
+
         #
         # Metaprogramming.
         # See Module#method_added
@@ -150,13 +153,25 @@ class Sif
                 reset_decorators
             end
         end
+
+        #
+        # Tests whether the given backtrace is from
+        # a argument error in task invocation.
+        #
+        def is_task_argument_error( backtrace, task_name )
+            backtrace[0].end_with?("in `#{task_name}'") and
+            backtrace[1].end_with?("in `call'") and
+            backtrace[2].end_with?("in `execute'") and
+            backtrace[3].end_with?("in `execute'") and
+            backtrace[4].end_with?("in `start'")
+        end
         
         #
         # Resets the decorators applied via #desc(),
-        # #usage() and #task_options.
+        # #usage() and #task_options().
         #
         def reset_decorators
-            @task_options = Array.new
+            @task_options = OptionArray.new
             @description = nil
             @usage = nil
         end
@@ -168,7 +183,7 @@ class Sif
         def initialize_instance
             @task_options ||= Sif::OptionArray.new
             @global_options ||= Sif::OptionArray.new
-            @tasks ||= Sif::OrderedHash.new
+            @tasks ||= Sif::TaskHash.new
         end
 
         #
@@ -176,16 +191,14 @@ class Sif
         #
         def execute( sif, task_name, args )
             if task_name.nil?
-                task = @tasks[:default]
+                task = @tasks.find_task(:default)
             else
-                task = @tasks[task_name]
+                task = @tasks.find_task(task_name)
             end
 
             case task
             when nil
                 raise Sif::NoSuchTaskError, "There is no task named `#{task_name}'"
-            when Sif::Indirection
-                execute(sif, task.target, args)
             else
                 sif.task_options = task.parse!(args)
                 task.execute(sif)
@@ -202,7 +215,7 @@ Sif.extend(Sif::HelpSystem)
 require 'sif/helpers'
 require 'sif/errors'
 require 'sif/has_description'
-require 'sif/ordered_hash'
+require 'sif/task_hash'
 require 'sif/option_array'
 require 'sif/task'
 require 'sif/option'

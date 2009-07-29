@@ -15,6 +15,10 @@ describe 'Sif' do
             arg.beer
         end
 
+        def energy_drink
+            party(42) # raises an argument error
+        end
+
         protected
 
         def punch arg
@@ -27,11 +31,15 @@ describe 'Sif' do
             arg.wine
         end
 
+        def party
+        end
+
     end
 
     def suppress_output
-        $stdout = StringIO.new
+        output = $stdout = StringIO.new
         yield
+        return output.string
     ensure
         $stdout = STDOUT
     end
@@ -62,7 +70,29 @@ describe 'Sif' do
             tester = mock('wine')
             tester.should.not.receive(:wine)
             SifTest.start(['wine', tester])
-        end
+        end.should.not.be.empty
+    end
+
+    it 'should catch task argument errors' do
+        suppress_output do
+            lambda {
+                SifTest.start(%w{beer and lemonade})
+            }.should.not.raise ArgumentError
+        end.should.not.be.empty
+    end
+
+    it 'should not catch other argument errors' do
+        suppress_output do
+            lambda {
+                SifTest.start(%w{energy_drink})
+            }.should.raise ArgumentError
+        end.should.be.empty
+    end
+
+    it 'should handle unknown tasks' do
+        suppress_output do
+            SifTest.start(%w{salad})
+        end.should.not.be.empty
     end
 
 end
@@ -80,7 +110,7 @@ describe 'A Task' do
         t.execute(context)
     end
 
-    it 'let its options grep' do
+    it 'should let its options grep' do
         options = mock('options')
         options.should.receive(:grep!).with(%w{beer}).and_return(options)
 
