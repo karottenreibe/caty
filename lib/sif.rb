@@ -114,7 +114,11 @@ class Sif
             initialize_instance
 
             mapping_hash.each do |mapping,target|
-                @tasks[mapping] = Sif::Indirection.new(target.to_s)
+                if [:before, :after].include?(mapping)
+                    @tasks[mapping] = Sif::DirectMapping.new(target.to_s)
+                else
+                    @tasks[mapping] = Sif::Indirection.new(target.to_s)
+                end
             end
         end
 
@@ -199,12 +203,18 @@ class Sif
                 task = @tasks.find_task(task_name)
             end
 
+            before = @tasks.find_task(:before)
+            after = @tasks.find_task(:after)
+
             case task
             when nil
                 raise Sif::NoSuchTaskError, "There is no task named `#{task_name}'"
             else
                 sif.task_options = task.parse!(args)
+
+                before.execute(sif) unless before.nil?
                 task.execute(sif)
+                after.execute(sif) unless after.nil?
             end
         end
 
@@ -218,11 +228,14 @@ Sif.extend(Sif::HelpSystem)
 require 'sif/helpers'
 require 'sif/errors'
 require 'sif/has_description'
+
 require 'sif/task_hash'
-require 'sif/option_array'
 require 'sif/task'
-require 'sif/option'
-require 'sif/converters'
-require 'sif/global_option'
 require 'sif/indirection'
+require 'sif/direct_mapping'
+
+require 'sif/option_array'
+require 'sif/converters'
+require 'sif/option'
+require 'sif/global_option'
 
