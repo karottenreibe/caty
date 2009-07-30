@@ -29,8 +29,8 @@ and some new features ... :-)
         task_options :speed => 1
         desc 'WHAT', "Eats stuff.\nThe speed determines how fast eating will go."
         def eat( what )
-            unless global_options[:silent]
-                puts "eating #{what} #{task_options[:speed]}x as fast!"
+            unless global_options.silent
+                puts "eating #{what} #{task_options.speed}x as fast!"
             end
         end
 

@@ -70,13 +70,14 @@ class Sif::Option
     #
     def grep! args
         rex = %r{^#{self.prefix}#{@name}(?:=(.+))?$}
-        args.each do |arg|
-            if rex =~ arg
-                return @converter.convert($1)
-            end
-        end
+        index = args.index { |arg| rex =~ arg }
 
-        @default
+        if index.nil?
+            @default
+        else
+            match = rex.match(args.delete_at(index))
+            @converter.convert(match[1])
+        end
     rescue Sif::OptionArgumentError  => e
         e.option = @name
         raise e
