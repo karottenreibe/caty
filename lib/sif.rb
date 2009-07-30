@@ -18,7 +18,7 @@
 # Use the #map() method to create aliases for
 # commands.
 #
-# Use the ::start() method to start parsing.
+# Use the ::start!() method to start parsing.
 #
 class Sif
 
@@ -37,13 +37,13 @@ class Sif
         #
         # Starts commandline parsing.
         #
-        #     Subclass.start arguments_array
-        #     Subclass.start
+        #     Subclass.start! arguments_array
+        #     Subclass.start!
         #
         # Returns 0 on success, a negative Integer when
         # an ArgumentError is detected.
         # 
-        def start( args = ARGV )
+        def start!( args = ARGV )
             initialize_instance
 
             sif = self.new
@@ -176,7 +176,7 @@ class Sif
             backtrace[1].end_with?("in `call'") and
             backtrace[2].end_with?("in `execute'") and
             backtrace[3].end_with?("in `execute'") and
-            backtrace[4].end_with?("in `start'")
+            backtrace[4].end_with?("in `start!'")
         end
         
         #
@@ -200,7 +200,7 @@ class Sif
         end
 
         #
-        # Does the actual work of executing the task for #start().
+        # Does the actual work of executing the task for #start!().
         #
         def execute( sif, task_name, args )
             if task_name.nil?
