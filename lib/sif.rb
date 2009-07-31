@@ -23,12 +23,14 @@
 class Sif
 
     #
-    # Returns the options for the called task.
+    # Returns the options for the called task as
+    # a OpenHash.
     #
     attr_accessor :task_options
 
     #
-    # Returns the global options for this invocation.
+    # Returns the global options for this invocation as
+    # a OpenHash.
     #
     attr_accessor :global_options
 

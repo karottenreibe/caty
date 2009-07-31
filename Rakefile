@@ -13,6 +13,7 @@ Hoe.spec('sif') do |p|
     p.version = '0.0.1'
     p.developer('Fabian Streitel', 'karottenreibe@gmail.com')
     p.remote_rdoc_dir = 'rdoc'
+    p.extra_deps = %w{ohash}
 end
 
 task :manifest do

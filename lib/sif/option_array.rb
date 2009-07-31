@@ -1,6 +1,6 @@
 
 require 'delegate'
-require 'ostruct'
+require 'ohash'
 
 class Sif::OptionArray < Array
 
@@ -13,7 +13,7 @@ class Sif::OptionArray < Array
             end
         end
 
-        OpenStruct.new(hash)
+        OpenHash.new(hash)
     end
 
 end

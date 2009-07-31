@@ -23,7 +23,7 @@ class Sif::Task
     #
     # Tries to remove the options defined for this task
     # from the args Array.
-    # Returns an OpenStruct containing the retrieved
+    # Returns an OpenHash containing the retrieved
     # options.
     #
     def parse!( args )
