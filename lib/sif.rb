@@ -46,10 +46,10 @@ class Sif
         def start!( args = ARGV )
             initialize_instance
 
-            sif = self.new
-            sif.global_options = @global_options.grep!(args)
-            
             begin
+                sif = self.new
+                sif.global_options = @global_options.grep!(args)
+
                 task_name = args.delete_at(0)
                 execute(sif, task_name, args)
                 return true
