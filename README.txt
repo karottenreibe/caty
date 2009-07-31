@@ -4,7 +4,7 @@
 
 == DESCRIPTION:
 
-Sif is a commandline parser that operades on the same
+Sif is a commandline parser that operates on the same
 principle as Yehuda Katz's Thor (http://github.com/wycats/thor/tree/master).
 
 Actually it's just a mean rip-off with some quirks removed
