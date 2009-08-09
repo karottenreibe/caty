@@ -28,17 +28,19 @@ describe 'An Option' do
     end
 
     it 'should grep boolean values' do
-        %w{-beer=true -beer}.each do |option|
+        %w{-beer=true -beer -beer=1}.each do |option|
             args = [option]
             o = Sif::Option.new('beer', :boolean)
             o.grep!(args).should.be.true
             args.should.be.empty
         end
 
-        o = Sif::Option.new('beer', :boolean)
-        args = %w{-beer=false}
-        o.grep!(args).should.be.false
-        args.should.be.empty
+        %w{-beer=false -beer=0}.each do |option|
+            args = [option]
+            o = Sif::Option.new('beer', :boolean)
+            o.grep!(args).should.be.false
+            args.should.be.empty
+        end
 
         lambda {
             o = Sif::Option.new('beer', :boolean)
