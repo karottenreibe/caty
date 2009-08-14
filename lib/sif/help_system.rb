@@ -8,7 +8,7 @@ module Sif::HelpSystem
         # or a page descriping a certain command/option.
         #
         def help( command_or_option = nil )
-            if command.nil?
+            if command_or_option.nil?
                 help_overview
             else
                 command_help(command_or_option)
@@ -22,7 +22,9 @@ module Sif::HelpSystem
         # options and global options known to Sif.
         #
         def help_overview
-            task_descs = @tasks.reject { |task| task.is_a?(Sif::Indirection) }.map(&:to_help)
+            task_descs = @tasks.to_a.reject do |task|
+                task.is_a?(Sif::Indirection) or task.is_a?(Sif::DirectMapping)
+            end.map(&:to_help)
             goption_descs = @global_options.map(&:to_help)
             column_width = (task_descs + goption_descs).map(&:first).map(&:length).max
 
@@ -31,7 +33,7 @@ module Sif::HelpSystem
             $stdout.puts
 
             task_descs.each do |desc|
-                $stdout.print "#{desc[0].ljust(column_width)} #{desc[1]}"
+                $stdout.puts "#{desc[0].ljust(column_width)} #{desc[1]}"
             end
 
             $stdout.puts
@@ -40,7 +42,7 @@ module Sif::HelpSystem
             $stdout.puts
 
             goption_descs.each do |desc|
-                $stdout.print "#{desc[0].ljust(column_width)} #{desc[1]}"
+                $stdout.puts "#{desc[0].ljust(column_width)} #{desc[1]}"
             end
         end
 

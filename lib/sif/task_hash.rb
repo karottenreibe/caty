@@ -5,18 +5,18 @@ require 'delegate'
 #
 class Sif::TaskHash < SimpleDelegator
 
-    def initialize
+    #
+    # Works like Hash#initialize.
+    #
+    def initialize( *args )
         @ary = Array.new
-        @hash = Hash.new
+        @hash = Hash.new(*args)
         self.__setobj__(@hash)
     end
 
-    def each
-        @ary.each do |item|
-            yield(item.name, item)
-        end
-    end
-
+    #
+    # Works like Hash#[].
+    #
     def []( num_or_key )
         case num_or_key
         when Numeric, Range then @ary[num_or_key]
@@ -24,6 +24,9 @@ class Sif::TaskHash < SimpleDelegator
         end
     end
 
+    #
+    # Works like Hash#[]=.
+    #
     def []=( key, value )
         index = @ary.find { |item| item == @hash[key] }
 
@@ -47,6 +50,22 @@ class Sif::TaskHash < SimpleDelegator
         when Sif::Indirection then self.find_task(task.target)
         else task
         end
+    end
+
+    #
+    # Returns a copy of the task hash as an array.
+    # The order of the items in the array is the same as in the
+    # task hash.
+    #
+    def to_a
+        @ary.dup
+    end
+
+    #
+    # Returns a copy of the task hash as a plain hash.
+    #
+    def to_h
+        @hash.dup
     end
 
 end

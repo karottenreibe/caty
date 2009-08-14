@@ -9,7 +9,8 @@ class Sif::OptionArray < Array
     def grep!( args )
         returning(OpenHash.new) do |hash|
             self.each do |option|
-                hash[option.name.to_sym] = option.grep!(args)
+                grab = option.grep!(args)
+                hash[option.name.to_sym] = grab unless grab.nil?
             end
         end
     end

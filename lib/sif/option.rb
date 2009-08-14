@@ -36,7 +36,7 @@ class Sif::Option
     # is interpreted as giving true as the argument.
     # Else, a MissingOptionArgumentError is thrown.
     #
-    def initialize name, default
+    def initialize( name, default )
         @name = name
 
         case default
@@ -68,7 +68,7 @@ class Sif::Option
     # Tries to remove the option from the args.
     # Returns the value grepped for this option.
     #
-    def grep! args
+    def grep!( args )
         rex = %r{^#{self.prefix}#{@name}(?:=(.+))?$}
         index = args.index { |arg| rex =~ arg }
 
