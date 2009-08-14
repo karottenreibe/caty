@@ -15,16 +15,14 @@ module Sif::HelpSystem
             end
         end
 
-        private
+        protected
 
         #
         # Displays the auto-generated help for all tasks,
         # options and global options known to Sif.
         #
         def help_overview
-            task_descs = @tasks.to_a.reject do |task|
-                task.is_a?(Sif::Indirection) or task.is_a?(Sif::DirectMapping)
-            end.map(&:to_help)
+            task_descs = self.taskarray.map(&:to_help)
             goption_descs = @global_options.map(&:to_help)
             column_width = (task_descs + goption_descs).map(&:first).map(&:length).max
 
@@ -51,7 +49,7 @@ module Sif::HelpSystem
         #
         def command_help( command )
             name = command.sub(%r{^--}, '')
-            tasks = @tasks.reject { |task| task.is_a?(Sif::Indirection) }
+            tasks = self.taskarray
             goptions = @global_options
 
             item = (tasks + goptions).find { |item| item.name == name }
@@ -63,6 +61,16 @@ module Sif::HelpSystem
                 $stdout.puts help_text[0]
                 $stdout.puts
                 $stdout.puts help_text[2]
+            end
+        end
+
+        #
+        # Returns the tasks as an array, with all indirections and
+        # direct mappings removed.
+        #
+        def taskarray
+            @tasks.to_a.reject do |task|
+                task.is_a?(Sif::Indirection) or task.is_a?(Sif::DirectMapping)
             end
         end
 
