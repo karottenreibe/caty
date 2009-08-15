@@ -4,10 +4,11 @@
 # A Task object is created for every public method created
 # in the Sif subclass.
 #
-class Sif::Task < Sif::Resolvable
+class Sif::Task
 
     include Sif::Helpers
     include Sif::HasDescription
+    include Sif::Resolvable
 
     attr_accessor :name, :usage
 

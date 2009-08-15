@@ -3,7 +3,7 @@
 # The standard interface for all entries
 # in a task hash.
 #
-class Sif::Resolvable
+module Sif::Resolvable
 
     #
     # See Indirection#resolve() for more information.
