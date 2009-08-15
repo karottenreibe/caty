@@ -3,7 +3,7 @@ require 'delegate'
 #
 # A hash that preserves the order of insertion.
 #
-class Sif::TaskHash < SimpleDelegator
+class Sif::TaskHash < DelegateClass(Hash)
 
     #
     # Works like Hash#initialize.
@@ -11,7 +11,7 @@ class Sif::TaskHash < SimpleDelegator
     def initialize( *args )
         @ary = Array.new
         @hash = Hash.new(*args)
-        self.__setobj__(@hash)
+        super(@hash)
     end
 
     #

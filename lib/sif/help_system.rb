@@ -49,10 +49,13 @@ module Sif::HelpSystem
         #
         def command_help( command )
             name = command.sub(%r{^--}, '')
-            tasks = self.taskarray
             goptions = @global_options
+            tasks = self.taskarray
 
             item = (tasks + goptions).find { |item| item.name == name }
+            aliases = @tasks.find_all do |name,task|
+                task.is_a?(Sif::Indirection) and task.target == command
+            end.map(&:first).join(', ')
 
             if item.nil?
                 $stdout.puts "Sorry, but I don't know `#{command}'"
@@ -61,6 +64,8 @@ module Sif::HelpSystem
                 $stdout.puts help_text[0]
                 $stdout.puts
                 $stdout.puts help_text[2]
+                $stdout.puts
+                $stdout.puts "Aliases: #{aliases}"
             end
         end
 
