@@ -3,7 +3,7 @@
 # Maps special tasks directly to an instance method, ignoring
 # visibility.
 #
-class Sif::DirectMapping
+class Sif::DirectMapping < Sif::Resolvable
 
     def initialize( method )
         @method = method

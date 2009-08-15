@@ -43,12 +43,11 @@ class Sif::TaskHash < DelegateClass(Hash)
     # Follows indirections until the task behind
     # the given task name is discovered.
     #
-    def find_task( task_name )
+    def resolve( task_name )
         task = self[task_name]
 
-        case task
-        when Sif::Indirection then self.find_task(task.target)
-        else task
+        if task.nil? then nil
+        else task.resolve(self)
         end
     end
 
@@ -66,6 +65,17 @@ class Sif::TaskHash < DelegateClass(Hash)
     #
     def to_h
         @hash.dup
+    end
+
+    #
+    # Returns an array containing all the items
+    # stored in this task hash, that have any of the
+    # given types.
+    #
+    def by_type( *types )
+        @ary.find_all do |item|
+            types.include?(item.class)
+        end
     end
 
 end

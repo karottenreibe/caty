@@ -61,7 +61,7 @@ class Sif
             rescue ArgumentError => e
                 # verify that this is actually the task throwing the error
                 if is_task_argument_error(e.backtrace, task_name)
-                    task = @tasks.find_task(task_name)
+                    task = @tasks.resolve(task_name)
                     $stdout.puts "Bad arguments for task #{task.name}."
                     $stdout.puts "Usage: #{task.to_s}"
                     return false
@@ -80,7 +80,7 @@ class Sif
             initialize_instance
 
             options_hash.each do |name,default|
-                @task_options << Sif::Option.new(name, default)
+                @task_options << Sif::Option.new(name.to_s, default)
             end
         end
         alias_method :task_option, :task_options
@@ -96,7 +96,7 @@ class Sif
             initialize_instance
 
             options_hash.each do |name,default|
-                option = Sif::GlobalOption.new(name, default)
+                option = Sif::GlobalOption.new(name.to_s, default)
                 option.description = @description
 
                 @global_options << option
@@ -124,7 +124,7 @@ class Sif
                     if [:before, :after].include?(mapping)
                         @tasks[mapping] = Sif::DirectMapping.new(target.to_s)
                     else
-                        @tasks[mapping] = Sif::Indirection.new(target.to_s)
+                        @tasks[mapping] = Sif::Indirection.new(mapping.to_s, target.to_s)
                     end
                 end
             end
@@ -206,13 +206,13 @@ class Sif
         #
         def execute( sif, task_name, args )
             if task_name.nil?
-                task = @tasks.find_task(:default)
+                task = @tasks.resolve(:default)
             else
-                task = @tasks.find_task(task_name)
+                task = @tasks.resolve(task_name)
             end
 
-            before = @tasks.find_task(:before)
-            after = @tasks.find_task(:after)
+            before = @tasks.resolve(:before)
+            after = @tasks.resolve(:after)
 
             case task
             when nil
@@ -237,6 +237,7 @@ require 'sif/helpers'
 require 'sif/errors'
 require 'sif/has_description'
 
+require 'sif/resolvable'
 require 'sif/task_hash'
 require 'sif/task'
 require 'sif/indirection'
