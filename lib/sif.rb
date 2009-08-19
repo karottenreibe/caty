@@ -24,7 +24,7 @@ class Sif
 
     #
     # Returns the options for the called task as
-    # a OpenHash.
+    # an OpenHash.
     #
     attr_accessor :task_options
 
