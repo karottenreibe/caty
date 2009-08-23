@@ -72,6 +72,44 @@ class Sif
         end
 
         #
+        # Methods to be used by the inheriting class.
+        #
+        protected
+
+        #
+        # Can be used to cut off whitespace in front of
+        # #desc() descriptions, so it can be written more
+        # nicely in the source.
+        #
+        # Describing this method is terribly complicated,
+        # so here's an example:
+        #
+        #   cut("
+        #       first
+        #         second
+        #       third
+        #   ")
+        #
+        # produces the string
+        #
+        #   "first\n  second\nthird"
+        #
+        # Notice the preserved whitespace in front of
+        # 'second'!
+        #
+        def cut( description )
+            description.sub!(%r{\A\n+}, '')
+            description =~ %r{\A([ \t]*)}
+
+            unless $1.nil?
+                space = $1
+                description.gsub!(%r{^#{space}}, '')
+            end
+
+            description.gsub(%r{\n\Z}, '')
+        end
+
+        #
         # Adds options for the following task.
         #
         #     task_options 'option_name' => default, 'option2' ...
@@ -145,6 +183,9 @@ class Sif
             end
         end
 
+        #
+        # Methods to be used by Sif itself
+        #
         private
 
         #
