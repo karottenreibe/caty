@@ -9,7 +9,7 @@ class Sif::TaskHash < DelegateClass(Hash)
     # Works like Hash#initialize.
     #
     def initialize( *args )
-        @ary = Array.new
+        @ary  = Array.new
         @hash = Hash.new(*args)
         super(@hash)
     end

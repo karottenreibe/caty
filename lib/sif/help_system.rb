@@ -22,9 +22,9 @@ module Sif::HelpSystem
     # options and global options known to Sif.
     #
     def help_overview
-        task_descs = self.taskarray.map(&:to_help)
+        task_descs    = self.taskarray.map(&:to_help)
         goption_descs = @global_options.map(&:to_help)
-        column_width = (task_descs + goption_descs).map(&:first).map(&:length).max
+        column_width  = (task_descs + goption_descs).map(&:first).map(&:length).max
 
         $stdout.puts 'Commands'
         $stdout.puts '========'
@@ -49,9 +49,9 @@ module Sif::HelpSystem
     #
     def command_help( command )
         goptions = @global_options
-        tasks = @tasks.by_type(Sif::Task, Sif::Indirection)
+        tasks    = @tasks.by_type(Sif::Task, Sif::Indirection)
 
-        item = @tasks.resolve(command) || goptions.find { |item| item.name == command }
+        item     = @tasks.resolve(command) || goptions.find { |item| item.name == command }
 
         if item.nil? || item.is_a?(Sif::DirectMapping)
             $stdout.puts "Sorry, but I don't know `#{command}'"

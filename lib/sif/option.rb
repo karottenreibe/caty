@@ -41,23 +41,23 @@ class Sif::Option
 
         case default
         when :boolean
-            @converter = Sif::BooleanConverter.new
-            @default = nil
+            @converter   = Sif::BooleanConverter.new
+            @default     = nil
         when :integer
-            @converter = Sif::IntegerConverter.new
-            @default = nil
+            @converter   = Sif::IntegerConverter.new
+            @default     = nil
         when :string
-            @converter = Sif::StringConverter.new
-            @default = nil
+            @converter   = Sif::StringConverter.new
+            @default     = nil
         when true, false
-            @converter = Sif::BooleanConverter.new
-            @default = default
+            @converter   = Sif::BooleanConverter.new
+            @default     = default
         when Integer
-            @converter = Sif::IntegerConverter.new
-            @default = default
+            @converter   = Sif::IntegerConverter.new
+            @default     = default
         when String
-            @converter = Sif::StringConverter.new
-            @default = default
+            @converter   = Sif::StringConverter.new
+            @default     = default
         else
             raise ArgumentError,
                 'Only boolean, string and integer values or :boolean, :integer, :string allowed.'
@@ -69,7 +69,7 @@ class Sif::Option
     # Returns the value grepped for this option.
     #
     def grep!( args )
-        rex = %r{^#{self.prefix}#{@name}(?:=(.+))?$}
+        rex   = %r{^#{self.prefix}#{@name}(?:=(.+))?$}
         index = args.index { |arg| rex =~ arg }
 
         if index.nil?

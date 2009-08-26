@@ -5,11 +5,11 @@ class Sif::BooleanConverter
 
     def convert( value )
         case value
-        when nil, 'true', '1' then true
-        when 'false', '0' then false
+        when 'true',  '1', nil then true
+        when 'false', '0'      then false
         else
             e = Sif::OptionArgumentError.new
-            e.expected = '0, 1, true or false'
+            e.expected = '0, 1, true, false or no argument'
             raise e
         end
     end
