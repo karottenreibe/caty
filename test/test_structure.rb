@@ -3,8 +3,11 @@ require 'sif'
 
 class TestSif < Sif
 
-    global_options 'booleanoption' => false, 'stringoption' => 'uiae',
-        'integeroption' => 42
+    global_options do
+        boolean 'booleanoption', false
+        string  'stringoption',  'uiae'
+        integer 'integeroption',  42
+    end
 
     map :default => 'task1'
     def task1
@@ -44,13 +47,11 @@ describe 'Sif' do
     it 'should have global options' do
         gopts = TestSif.global_options
         gopts.length.should.be.equal 3
-        gopts.sort! do |a,b|
-            a.name <=> b.name
-        end
+        gopts.sort_by(&:name)
 
         gopts[0].name.should.be.equal 'booleanoption'
-        gopts[1].name.should.be.equal 'integeroption'
-        gopts[2].name.should.be.equal 'stringoption'
+        gopts[1].name.should.be.equal 'stringoption'
+        gopts[2].name.should.be.equal 'integeroption'
     end
 
     it 'should have task options' do

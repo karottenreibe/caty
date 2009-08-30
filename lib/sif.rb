@@ -116,32 +116,28 @@ class Sif
         #
         def task_options( options_hash )
             initialize_instance
-
             options_hash.each do |name,default|
                 @task_options << Sif::Option.new(name.to_s, default)
             end
         end
-        alias_method :task_option, :task_options
 
         #
         # Adds global options.
         # The first option will be decorated with the last description
         # defined via #desc().
         #
-        #     global_options 'option_name' => default, 'option2' ...
+        #     global_options do
+        #         desc('description')
+        #         string  'option_name' => 'default'
         #
-        def global_options( options_hash )
+        #         desc('desc2')
+        #         integer 'option2'
+        #     end
+        #
+        def global_options( &block )
             initialize_instance
-
-            options_hash.each do |name,default|
-                option = Sif::GlobalOption.new(name.to_s, default)
-                option.description = @description
-
-                @global_options << option
-                reset_decorators
-            end
+            @global_options += Sif::OptionConstructor.new(Sif::GlobalOption).construct(&block)
         end
-        alias_method :global_option, :global_options
 
         #
         # Creates aliases for tasks.
@@ -285,6 +281,7 @@ require 'sif/indirection'
 require 'sif/direct_mapping'
 
 require 'sif/option_array'
+require 'sif/option_constructor'
 require 'sif/converters'
 require 'sif/option'
 require 'sif/global_option'

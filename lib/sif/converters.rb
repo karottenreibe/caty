@@ -18,6 +18,7 @@ class Sif::Converter
         def type( type, *allowed_defaults )
             @@types ||= Hash.new
             @@types[type]     = self
+            Sif::OptionConstructor.register(type)
             @allowed_defaults = allowed_defaults
         end
 
