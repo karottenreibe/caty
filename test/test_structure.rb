@@ -53,7 +53,7 @@ describe 'Sif' do
         gopts[2].name.should.be.equal 'stringoption'
     end
 
-    it 'should have local options' do
+    it 'should have task options' do
         opts = TestSif.tasks['task2'].instance_variable_get(:@options)
         opts.should.not.be.nil
         opts.length.should.be.equal 3
