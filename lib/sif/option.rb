@@ -33,35 +33,29 @@ class Sif::Option
     #TODO lambdas
     #
     # If the deduced argument type is boolean, not giving an argument
-    # is interpreted as giving true as the argument.
-    # Else, a MissingOptionArgumentError is thrown.
+    # on the command line is interpreted as giving 'true' as the argument.
+    # For all the other types, a MissingOptionArgumentError is thrown.
     #
     def initialize( name, default )
-        @name = name
+        @name       = name
+        @converter  = nil
 
-        case default
-        when :boolean
-            @converter   = Sif::BooleanConverter.new
-            @default     = nil
-        when :integer
-            @converter   = Sif::IntegerConverter.new
-            @default     = nil
-        when :string
-            @converter   = Sif::StringConverter.new
-            @default     = nil
-        when true, false
-            @converter   = Sif::BooleanConverter.new
-            @default     = default
-        when Integer
-            @converter   = Sif::IntegerConverter.new
-            @default     = default
-        when String
-            @converter   = Sif::StringConverter.new
-            @default     = default
-        else
-            raise ArgumentError,
-                'Only boolean, string and integer values or :boolean, :integer, :string allowed.'
+        Sif::Converter.types.each do |type,converter|
+            if default == type
+                @converter   = converter.new
+                @default     = nil
+                break
+            elsif converter.allowed_defaults.any? { |klass| default.is_a?(klass) }
+                @converter   = converter.new
+                @default     = default
+                break
+            end
         end
+
+        raise(
+            ArgumentError,
+            'Only boolean, string and integer values or :boolean, :integer, :string allowed.'
+        ) if @converter.nil?
     end
 
     #

@@ -1,7 +1,46 @@
 
-class Sif::BooleanConverter
+#
+# Base class for all option converters.
+# Offers some metaprogramming.
+#
+class Sif::Converter
 
     include Sif::Helpers
+
+    class << self
+
+        attr_accessor :allowed_defaults
+
+        #
+        # Registers a converter subclass for a type (symbol)
+        # and some default value classes
+        #
+        def type( type, *allowed_defaults )
+            @@types ||= Hash.new
+            @@types[type]     = self
+            @allowed_defaults = allowed_defaults
+        end
+
+        #
+        # Returns a hash containing
+        #   :type => Class
+        # for all converter subclasses
+        #
+        def types
+            @@types ||= Hash.new
+        end
+
+    end
+
+end
+
+#
+# Converter for boolean values:
+#   %w(true false 1 0) << nil
+#
+class Sif::BooleanConverter < Sif::Converter
+
+    type(:boolean, TrueClass, FalseClass)
 
     def convert( value )
         case value
@@ -13,11 +52,16 @@ class Sif::BooleanConverter
             raise e
         end
     end
+
 end
 
-class Sif::StringConverter
+#
+# Converter for string values:
+#   /.*/
+#
+class Sif::StringConverter < Sif::Converter
 
-    include Sif::Helpers
+    type(:string, String)
 
     def convert( value )
         case value
@@ -28,11 +72,16 @@ class Sif::StringConverter
         else value
         end
     end
+
 end
 
-class Sif::IntegerConverter
+#
+# Converter for integer values:
+#   /^[+-]?[0-9]+$/
+#
+class Sif::IntegerConverter < Sif::Converter
 
-    include Sif::Helpers
+    type(:integer, Fixnum)
 
     def convert( value )
         case value
@@ -43,5 +92,6 @@ class Sif::IntegerConverter
             raise e
         end
     end
+
 end
 
