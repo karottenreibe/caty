@@ -9,8 +9,9 @@ describe 'Sif' do
 
     class SifTest < Sif
 
-        map :default => :beer,
-            'lager' => :beer
+        default :beer
+        map 'lager' => :beer
+
         def beer arg = DEFAULT_TESTER
             arg.beer
         end

@@ -52,16 +52,30 @@ class Sif
                 sif = self.new
                 sif.global_options = @global_options.grep!(args)
 
-                task_name = args.delete_at(0)
-                execute(sif, task_name, args)
+                task_name = args.delete_at(0) || @default
+                raise Sif::NoSuchTaskError, "You need to provide a task" if task_name.nil?
+
+                task = @tasks.resolve(task_name.to_sym)
+
+                if task.nil?
+                    raise Sif::NoSuchTaskError, "There is no task named `#{task_name}'"
+                else
+                    sif.task_options = task.parse!(args)
+
+                    sif.instance_eval(@before) unless @before.nil?
+                    task.execute(sif)
+                    sif.instance_eval(@after) unless @after.nil?
+                end
+
                 return true
+
             rescue Sif::NoSuchTaskError, Sif::OptionArgumentError => e
                 $stdout.puts e.message
                 return false
+
             rescue ArgumentError => e
                 # verify that this is actually the task throwing the error
                 if is_task_argument_error(e.backtrace, task_name)
-                    task = @tasks.resolve(task_name)
                     $stdout.puts "Bad arguments for task #{task.name}."
                     $stdout.puts "Usage: #{task.to_s}"
                     return false
@@ -112,12 +126,12 @@ class Sif
         #
         # Adds options for the following task.
         #
-        #     task_options 'option_name' => default, 'option2' ...
+        #     task_options :option_name => default, :option2 ...
         #
         def task_options( options_hash )
             initialize_instance
             options_hash.each do |name,default|
-                @task_options << Sif::Option.new(name.to_s, default)
+                @task_options << Sif::Option.new(name.to_sym, default)
             end
         end
 
@@ -142,11 +156,8 @@ class Sif
         #
         # Creates aliases for tasks.
         #
-        #     map 'alias' => :task_name
+        #     map :alias            => :task_name
         #     map %w{alias1 alias2} => :task_name
-        #     map :default => 'task_name'
-        #     map :before => 'task_name'
-        #     map :after => 'task_name'
         #
         def map( mapping_hash )
             initialize_instance
@@ -155,13 +166,46 @@ class Sif
                 mappings = [mappings] unless mappings.is_a?(Array)
 
                 mappings.each do |mapping|
-                    if [:before, :after].include?(mapping)
-                        @tasks[mapping] = Sif::DirectMapping.new(target.to_s)
-                    else
-                        @tasks[mapping] = Sif::Indirection.new(mapping.to_s, target.to_s)
-                    end
+                    @tasks[mapping.to_sym] = Sif::Indirection.new(mapping.to_sym, target.to_sym)
                 end
             end
+        end
+
+        #
+        # Defines a block of code that will be executed right
+        # before any task is called.
+        # _self_ will point to the Sif instance.
+        #
+        #     before do
+        #         puts self.inspect
+        #     end
+        #
+        def before( &block )
+            @before = block
+        end
+
+        #
+        # Defines a default task.
+        #
+        #     default :task
+        #
+        def default( task )
+            @default = task.to_sym
+        end
+
+        #
+        # Defines a block of code that will be executed right
+        # after any task is called.
+        # _self_ will point to the Sif instance.
+        #
+        # NOTE: this code will not be executed when an error occured
+        #
+        #     after do
+        #         puts self.inspect
+        #     end
+        #
+        def after( &block )
+            @after = block
         end
 
         #
@@ -197,11 +241,11 @@ class Sif
             # only add public methods as tasks
             if self.public_instance_methods.include?(name)
                 method = self.instance_method(name)
-                task = Sif::Task.new(name, method, @task_options) if @tasks[name].nil?
+                task = @tasks[meth] || Sif::Task.new(meth, method, @task_options)
                 task.description = @description
                 task.usage = @usage
 
-                @tasks[name] = task
+                @tasks[meth] = task
                 reset_decorators
             end
         end
@@ -214,8 +258,7 @@ class Sif
             backtrace[0].end_with?("in `#{task_name}'") and
             backtrace[1].end_with?("in `call'") and
             backtrace[2].end_with?("in `execute'") and
-            backtrace[3].end_with?("in `execute'") and
-            backtrace[4].end_with?("in `start!'")
+            backtrace[3].end_with?("in `start!'")
         end
         
         #
@@ -242,25 +285,6 @@ class Sif
         # Does the actual work of executing the task for #start!().
         #
         def execute( sif, task_name, args )
-            if task_name.nil?
-                task = @tasks.resolve(:default)
-            else
-                task = @tasks.resolve(task_name)
-            end
-
-            before = @tasks.resolve(:before)
-            after = @tasks.resolve(:after)
-
-            case task
-            when nil
-                raise Sif::NoSuchTaskError, "There is no task named `#{task_name}'"
-            else
-                sif.task_options = task.parse!(args)
-
-                before.execute(sif) unless before.nil?
-                task.execute(sif)
-                after.execute(sif) unless after.nil?
-            end
         end
 
     end

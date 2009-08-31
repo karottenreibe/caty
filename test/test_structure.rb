@@ -9,18 +9,20 @@ class TestSif < Sif
         integer 'integeroption',  42
     end
 
-    map :default => 'task1'
+    default :task1
+
     def task1
     end
 
     map 'mappedtask' => :task2
-    task_options 'stringoption' => :string, 'integeroption' => :integer,
-        'booleanoption' => :boolean
+    task_options 'stringoption'  => :string,
+                 'integeroption' => :integer,
+                 'booleanoption' => :boolean
     def task2
     end
 
     class << self
-        attr_accessor :tasks, :global_options
+        attr_accessor :tasks, :global_options, :default
     end
 
 end
@@ -29,19 +31,18 @@ describe 'Sif' do
 
     it 'should have tasks and mappings' do
         tasks = TestSif.tasks
-        tasks.length.should.be.equal 4
+        tasks.length.should.be.equal 3
 
-        tasks['task1'].should.not.be.nil
-        tasks['task1'].name.should.be.equal 'task1'
+        tasks[:task1].should.not.be.nil
+        tasks[:task1].name.should.be.equal :task1
 
-        tasks['task2'].should.not.be.nil
-        tasks['task2'].name.should.be.equal 'task2'
+        tasks[:task2].should.not.be.nil
+        tasks[:task2].name.should.be.equal :task2
 
-        tasks['mappedtask'].should.not.be.nil
-        tasks['mappedtask'].target.should.be.equal 'task2'
+        tasks[:mappedtask].should.not.be.nil
+        tasks[:mappedtask].target.should.be.equal :task2
 
-        tasks[:default].should.not.be.nil
-        tasks[:default].target.should.be.equal 'task1'
+        TestSif.default.should.be.equal :task1
     end
 
     it 'should have global options' do
@@ -55,16 +56,16 @@ describe 'Sif' do
     end
 
     it 'should have task options' do
-        opts = TestSif.tasks['task2'].instance_variable_get(:@options)
+        opts = TestSif.tasks[:task2].instance_variable_get(:@options)
         opts.should.not.be.nil
         opts.length.should.be.equal 3
         opts.sort! do |a,b|
-            a.name <=> b.name
+            a.name.to_s <=> b.name.to_s
         end
 
-        opts[0].name.should.be.equal 'booleanoption'
-        opts[1].name.should.be.equal 'integeroption'
-        opts[2].name.should.be.equal 'stringoption'
+        opts[0].name.should.be.equal :booleanoption
+        opts[1].name.should.be.equal :integeroption
+        opts[2].name.should.be.equal :stringoption
     end
 
 end
