@@ -3,15 +3,15 @@ module Sif::HelpSystem
 
     #
     # Interface for Sif's help system.
-    # Displays either a general help page for all commands
+    # Displays either a general help page for all tasks
     # and options known to Sif in case no argument was given;
-    # or a page descriping a certain command/option.
+    # or a page descriping a certain task/option.
     #
-    def help( command_or_option = nil )
-        if command_or_option.nil?
+    def help( task_or_option = nil )
+        if task_or_option.nil?
             help_overview
         else
-            command_help(command_or_option)
+            token_help(task_or_option)
         end
     end
 
@@ -47,14 +47,14 @@ module Sif::HelpSystem
     #
     # Displays the auto-generated help for a certain task/option.
     #
-    def command_help( command )
+    def token_help( token )
         goptions = @global_options
-        tasks    = @tasks.by_type(Sif::Task, Sif::Indirection)
+        tasks    = @tasks.to_a
 
-        item     = @tasks.resolve(command) || goptions.find { |item| item.name == command }
+        item     = @tasks.resolve(token) || goptions.find { |item| item.name == token }
 
         if item.nil? || item.is_a?(Sif::DirectMapping)
-            $stdout.puts "Sorry, but I don't know `#{command}'"
+            $stdout.puts "Sorry, but I don't know `#{token}'"
         else
             aliases = @tasks.find_all do |_,task|
                 task.is_a?(Sif::Indirection) and task.target == item.name
@@ -73,12 +73,11 @@ module Sif::HelpSystem
     end
 
     #
-    # Returns the tasks as an array, with all indirections and
-    # direct mappings removed.
+    # Returns the tasks as an array, with all indirections and removed.
     #
     def taskarray
         @tasks.to_a.reject do |task|
-            task.is_a?(Sif::Indirection) or task.is_a?(Sif::DirectMapping)
+            task.is_a?(Sif::Indirection)
         end
     end
 

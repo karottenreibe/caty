@@ -67,16 +67,5 @@ class Sif::TaskHash < DelegateClass(Hash)
         @hash.dup
     end
 
-    #
-    # Returns an array containing all the items
-    # stored in this task hash, that have any of the
-    # given types.
-    #
-    def by_type( *types )
-        @ary.find_all do |item|
-            types.include?(item.class)
-        end
-    end
-
 end
 

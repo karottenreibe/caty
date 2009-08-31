@@ -2,9 +2,11 @@
 # This a mean rip-off of the great, one-and-only Thor.
 # Kudos to Yehuda Katz.
 #
+# http://yehudakatz.com/2008/05/12/by-thors-hammer/
+#
 
 #
-# Handles commandline parsing.
+# Handles command line parsing.
 #
 # Subclass this and add public methods.
 # These methods will become tasks, which will be
@@ -16,7 +18,7 @@
 # methods to add global or task-specific options.
 #
 # Use the #map() method to create aliases for
-# commands.
+# tasks.
 #
 # Use the ::start!() method to start parsing.
 #
@@ -37,7 +39,7 @@ class Sif
     class << self
 
         #
-        # Starts commandline parsing.
+        # Starts command line parsing.
         #
         #     Subclass.start! arguments_array
         #     Subclass.start!
@@ -198,7 +200,7 @@ class Sif
         # after any task is called.
         # _self_ will point to the Sif instance.
         #
-        # NOTE: this code will not be executed when an error occured
+        # NOTE: this code will not be executed if an error occured.
         #
         #     after do
         #         puts self.inspect
@@ -255,10 +257,10 @@ class Sif
         # a argument error in task invocation.
         #
         def is_task_argument_error( backtrace, task_name )
-            backtrace[0].end_with?("in `#{task_name}'") and
-            backtrace[1].end_with?("in `call'") and
-            backtrace[2].end_with?("in `execute'") and
-            backtrace[3].end_with?("in `start!'")
+            backtrace[0].end_with?("in `#{task_name}'") and  # inside the task method
+            backtrace[1].end_with?("in `call'")         and  # in Task#call
+            backtrace[2].end_with?("in `execute'")      and  # in Task#execute
+            backtrace[3].end_with?("in `start!'")            # in Sif::start!
         end
         
         #
@@ -279,12 +281,6 @@ class Sif
             @task_options ||= Sif::OptionArray.new
             @global_options ||= Sif::OptionArray.new
             @tasks ||= Sif::TaskHash.new
-        end
-
-        #
-        # Does the actual work of executing the task for #start!().
-        #
-        def execute( sif, task_name, args )
         end
 
     end
