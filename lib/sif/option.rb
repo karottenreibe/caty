@@ -30,7 +30,6 @@ class Sif::Option
     #   will be coerced into the given type.
     # - any other value will be treated as if a String had been
     #   given.
-    #TODO lambdas
     #
     # If the deduced argument type is boolean, not giving an argument
     # on the command line is interpreted as giving 'true' as the argument.
