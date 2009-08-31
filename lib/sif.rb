@@ -298,11 +298,9 @@ require 'sif/helpers'
 require 'sif/errors'
 require 'sif/has_description'
 
-require 'sif/resolvable'
 require 'sif/task_hash'
 require 'sif/task'
 require 'sif/indirection'
-require 'sif/direct_mapping'
 
 require 'sif/option_array'
 require 'sif/option_constructor'

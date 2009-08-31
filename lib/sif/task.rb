@@ -8,7 +8,6 @@ class Sif::Task
 
     include Sif::Helpers
     include Sif::HasDescription
-    include Sif::Resolvable
 
     attr_accessor :name, :usage
 
@@ -38,6 +37,14 @@ class Sif::Task
     #
     def execute( context )
         @instance_method.bind(context).call(*@args)
+    end
+
+    #
+    # Resolving end point.
+    # See Indirection#resolve() for more information.
+    #
+    def resolve( task_hash )
+        self
     end
 
     #
