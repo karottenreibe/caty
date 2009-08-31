@@ -88,16 +88,36 @@ class Sif
         end
 
         #
+        # Simply class_evals the given block on
+        # your Sif subtype, thus allowing you to
+        # add new tasks in different source files.
+        #
+        #     class X < Sif
+        #     end
+        #
+        #     X.append do
+        #         def bar
+        #             puts 'bar task'
+        #         end
+        #     end
+        #
+        #     X.start!(%w{bar})
+        #
+        def append( &block )
+            self.class_eval(&block)
+        end
+
+        #
         # Methods to be used by the inheriting class.
         #
-        protected
+        private
 
         #
         # Can be used to cut off whitespace in front of
         # #desc() descriptions, so it can be written more
         # nicely in the source.
         #
-        # Describing this method is terribly complicated,
+        # Describing this method accurately is terribly complicated,
         # so here's an example:
         #
         #   cut("
@@ -226,9 +246,9 @@ class Sif
         end
 
         #
-        # Methods to be used by Sif itself
+        # Methods to be used by Sif itself.
         #
-        private
+        protected
 
         #
         # Metaprogramming.
