@@ -3,7 +3,7 @@
 # Used to map things to other tasks and resolve
 # those mappings at runtime.
 #
-Sif::Indirection = Struct.new(:name, :target) do
+Caty::Indirection = Struct.new(:name, :target) do
 
     #
     # Follows the indirection until it reaches
@@ -12,7 +12,7 @@ Sif::Indirection = Struct.new(:name, :target) do
     def resolve( task_hash )
         next_item = task_hash[self.target]
 
-        if next_item.is_a?(Sif::Indirection)
+        if next_item.is_a?(Caty::Indirection)
             next_item.resolve(task_hash)
         else
             next_item

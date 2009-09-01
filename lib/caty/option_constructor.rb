@@ -10,7 +10,7 @@
 #        integer :nother_one
 #   end
 #
-class Sif::OptionConstructor
+class Caty::OptionConstructor
 
     class << self
 

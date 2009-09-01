@@ -2,12 +2,12 @@
 #
 # Represents a single task.
 # A Task object is created for every public method created
-# in the Sif subclass.
+# in the Caty subclass.
 #
-class Sif::Task
+class Caty::Task
 
-    include Sif::Helpers
-    include Sif::HasDescription
+    include Caty::Helpers
+    include Caty::HasDescription
 
     attr_accessor :name, :usage
 

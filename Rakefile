@@ -9,7 +9,7 @@ module Rake
     end
 end
 
-Hoe.spec('sif') do |p|
+Hoe.spec('caty') do |p|
     p.version = '0.0.1'
     p.developer('Fabian Streitel', 'karottenreibe@gmail.com')
     p.remote_rdoc_dir = 'rdoc'

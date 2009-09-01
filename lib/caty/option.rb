@@ -2,13 +2,13 @@
 #
 # Represents a single option.
 # An Option object is created for every option
-# specified via Sif#task_options().
+# specified via Caty#task_options().
 # The sum of all options parsed is accessible
-# via the Sif#options() method.
+# via the Caty#options() method.
 #
-class Sif::Option
+class Caty::Option
 
-    include Sif::Helpers
+    include Caty::Helpers
 
     attr_reader :name
 
@@ -39,7 +39,7 @@ class Sif::Option
         @name       = name
         @converter  = nil
 
-        Sif::Converter.types.each do |type,converter|
+        Caty::Converter.types.each do |type,converter|
             if default == type
                 @converter   = converter.new
                 @default     = nil
@@ -71,7 +71,7 @@ class Sif::Option
             match = rex.match(args.delete_at(index))
             @converter.convert(match[1])
         end
-    rescue Sif::OptionArgumentError  => e
+    rescue Caty::OptionArgumentError  => e
         e.option = @name
         raise e
     end

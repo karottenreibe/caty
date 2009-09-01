@@ -3,7 +3,7 @@ require 'delegate'
 #
 # A hash that preserves the order of insertion.
 #
-class Sif::TaskHash < DelegateClass(Hash)
+class Caty::TaskHash < DelegateClass(Hash)
 
     #
     # Works like Hash#initialize.

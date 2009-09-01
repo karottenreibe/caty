@@ -22,7 +22,7 @@
 #
 # Use the ::start!() method to start parsing.
 #
-class Sif
+class Caty
 
     #
     # Returns the options for the called task as
@@ -51,27 +51,27 @@ class Sif
             initialize_instance
 
             begin
-                sif = self.new
-                sif.global_options = @global_options.grep!(args)
+                caty = self.new
+                caty.global_options = @global_options.grep!(args)
 
                 task_name = args.delete_at(0) || @default
-                raise Sif::NoSuchTaskError, "You need to provide a task" if task_name.nil?
+                raise Caty::NoSuchTaskError, "You need to provide a task" if task_name.nil?
 
                 task = @tasks.resolve(task_name.to_sym)
 
                 if task.nil?
-                    raise Sif::NoSuchTaskError, "There is no task named `#{task_name}'"
+                    raise Caty::NoSuchTaskError, "There is no task named `#{task_name}'"
                 else
-                    sif.task_options = task.parse!(args)
+                    caty.task_options = task.parse!(args)
 
-                    sif.instance_eval(@before) unless @before.nil?
-                    task.execute(sif)
-                    sif.instance_eval(@after) unless @after.nil?
+                    caty.instance_eval(@before) unless @before.nil?
+                    task.execute(caty)
+                    caty.instance_eval(@after) unless @after.nil?
                 end
 
                 return true
 
-            rescue Sif::NoSuchTaskError, Sif::OptionArgumentError => e
+            rescue Caty::NoSuchTaskError, Caty::OptionArgumentError => e
                 $stdout.puts e.message
                 return false
 
@@ -89,10 +89,10 @@ class Sif
 
         #
         # Simply class_evals the given block on
-        # your Sif subtype, thus allowing you to
+        # your Caty subtype, thus allowing you to
         # add new tasks in different source files.
         #
-        #     class X < Sif
+        #     class X < Caty
         #     end
         #
         #     X.append do
@@ -153,7 +153,7 @@ class Sif
         def task_options( options_hash )
             initialize_instance
             options_hash.each do |name,default|
-                @task_options << Sif::Option.new(name.to_sym, default)
+                @task_options << Caty::Option.new(name.to_sym, default)
             end
         end
 
@@ -172,7 +172,7 @@ class Sif
         #
         def global_options( &block )
             initialize_instance
-            @global_options += Sif::OptionConstructor.new(Sif::GlobalOption).construct(&block)
+            @global_options += Caty::OptionConstructor.new(Caty::GlobalOption).construct(&block)
         end
 
         #
@@ -188,7 +188,7 @@ class Sif
                 mappings = [mappings] unless mappings.is_a?(Array)
 
                 mappings.each do |mapping|
-                    @tasks[mapping.to_sym] = Sif::Indirection.new(mapping.to_sym, target.to_sym)
+                    @tasks[mapping.to_sym] = Caty::Indirection.new(mapping.to_sym, target.to_sym)
                 end
             end
         end
@@ -196,7 +196,7 @@ class Sif
         #
         # Defines a block of code that will be executed right
         # before any task is called.
-        # _self_ will point to the Sif instance.
+        # _self_ will point to the Caty instance.
         #
         #     before do
         #         puts self.inspect
@@ -218,7 +218,7 @@ class Sif
         #
         # Defines a block of code that will be executed right
         # after any task is called.
-        # _self_ will point to the Sif instance.
+        # _self_ will point to the Caty instance.
         #
         # NOTE: this code will not be executed if an error occured.
         #
@@ -246,7 +246,7 @@ class Sif
         end
 
         #
-        # Methods to be used by Sif itself.
+        # Methods to be used by Caty itself.
         #
         protected
 
@@ -263,7 +263,7 @@ class Sif
             # only add public methods as tasks
             if self.public_instance_methods.include?(name)
                 method = self.instance_method(name)
-                task = @tasks[meth] || Sif::Task.new(meth, method, @task_options)
+                task = @tasks[meth] || Caty::Task.new(meth, method, @task_options)
                 task.description = @description
                 task.usage = @usage
 
@@ -280,7 +280,7 @@ class Sif
             backtrace[0].end_with?("in `#{task_name}'") and  # inside the task method
             backtrace[1].end_with?("in `call'")         and  # in Task#call
             backtrace[2].end_with?("in `execute'")      and  # in Task#execute
-            backtrace[3].end_with?("in `start!'")            # in Sif::start!
+            backtrace[3].end_with?("in `start!'")            # in Caty::start!
         end
         
         #
@@ -298,29 +298,29 @@ class Sif
         # storage instance variables.
         #
         def initialize_instance
-            @task_options ||= Sif::OptionArray.new
-            @global_options ||= Sif::OptionArray.new
-            @tasks ||= Sif::TaskHash.new
+            @task_options ||= Caty::OptionArray.new
+            @global_options ||= Caty::OptionArray.new
+            @tasks ||= Caty::TaskHash.new
         end
 
     end
 
 end
 
-require 'sif/help_system'
-Sif.extend(Sif::HelpSystem)
+require 'caty/help_system'
+Caty.extend(Caty::HelpSystem)
 
-require 'sif/helpers'
-require 'sif/errors'
-require 'sif/has_description'
+require 'caty/helpers'
+require 'caty/errors'
+require 'caty/has_description'
 
-require 'sif/task_hash'
-require 'sif/task'
-require 'sif/indirection'
+require 'caty/task_hash'
+require 'caty/task'
+require 'caty/indirection'
 
-require 'sif/option_array'
-require 'sif/option_constructor'
-require 'sif/converters'
-require 'sif/option'
-require 'sif/global_option'
+require 'caty/option_array'
+require 'caty/option_constructor'
+require 'caty/converters'
+require 'caty/option'
+require 'caty/global_option'
 

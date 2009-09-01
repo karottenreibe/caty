@@ -1,17 +1,17 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{sif}
+  s.name = %q{caty}
   s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors =  ["Fabian Streitel"]
   s.date = %q{2009-08-03}
-  s.description = %q{Sif is a commandline parser that operates on the same principle as Yehuda Katz's Thor.'}
+  s.description = %q{Caty is a commandline parser that operates on the same principle as Yehuda Katz's Thor.'}
   s.email = %q{karottenreibe@gmail.com}
-  s.files = ["History.txt", "README.txt", "LICENSE.txt", "sif.gemspec"]
+  s.files = ["History.txt", "README.txt", "LICENSE.txt", "caty.gemspec"]
   s.has_rdoc = true
-  s.homepage = %q{http://github.com/karottenreibe/sif}
+  s.homepage = %q{http://github.com/karottenreibe/caty}
   s.rubygems_version = %q{1.3.0}
   s.summary = s.description
 

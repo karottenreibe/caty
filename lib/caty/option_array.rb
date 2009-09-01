@@ -2,9 +2,9 @@
 require 'delegate'
 require 'ohash'
 
-class Sif::OptionArray < Array
+class Caty::OptionArray < Array
 
-    include Sif::Helpers
+    include Caty::Helpers
 
     def grep!( args )
         returning(OpenHash.new) do |hash|

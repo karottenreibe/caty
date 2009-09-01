@@ -2,13 +2,13 @@
 #
 # Represents a single global option.
 # A GlobalOption object is created for every option
-# specified via Sif::global_options().
+# specified via Caty::global_options().
 # The sum of all global options parsed is accessible
-# via the Sif#global_options() method.
+# via the Caty#global_options() method.
 #
-class Sif::GlobalOption < Sif::Option
+class Caty::GlobalOption < Caty::Option
 
-    include Sif::HasDescription
+    include Caty::HasDescription
 
     #
     # Returns a string representation to be used by

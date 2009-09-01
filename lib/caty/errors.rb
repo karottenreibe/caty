@@ -1,8 +1,8 @@
 
-class Sif::NoSuchTaskError < ArgumentError
+class Caty::NoSuchTaskError < ArgumentError
 end
 
-class Sif::OptionArgumentError < ArgumentError
+class Caty::OptionArgumentError < ArgumentError
 
     attr_accessor :expected, :option
 

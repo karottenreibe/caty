@@ -1,5 +1,5 @@
 
-module Sif::Helpers
+module Caty::Helpers
 
     private
 

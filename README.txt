@@ -1,10 +1,10 @@
-= sif
+= caty
 
-* http://github.com/karottenreibe/sif
+* http://github.com/karottenreibe/caty
 
 == DESCRIPTION:
 
-Sif is a commandline parser that operates on the same
+Caty is a commandline parser that operates on the same
 principle as Yehuda Katz's Thor (http://github.com/wycats/thor/tree/master).
 
 Actually it's just a mean rip-off with some quirks removed
@@ -20,9 +20,9 @@ and some new features ... :-)
 == SYNOPSIS:
 
     require 'rubygems'
-    require 'sif'
+    require 'caty'
 
-    class BarBeQue < Sif
+    class BarBeQue < Caty
 
         global_options :silent => false
 
@@ -40,7 +40,7 @@ and some new features ... :-)
 
 == INSTALL:
 
-* sudo gem install karottenreibe-sif --source http://gems.github.com
+* sudo gem install karottenreibe-caty --source http://gems.github.com
 
 == LICENSE:
 

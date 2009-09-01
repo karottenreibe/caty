@@ -1,7 +1,7 @@
 require 'bacon'
-require 'sif'
+require 'caty'
 
-class TestSif < Sif
+class TestCaty < Caty
 
     global_options do
         boolean 'booleanoption', false
@@ -27,10 +27,10 @@ class TestSif < Sif
 
 end
 
-describe 'Sif' do
+describe 'Caty' do
 
     it 'should have tasks and mappings' do
-        tasks = TestSif.tasks
+        tasks = TestCaty.tasks
         tasks.length.should.be.equal 3
 
         tasks[:task1].should.not.be.nil
@@ -42,11 +42,11 @@ describe 'Sif' do
         tasks[:mappedtask].should.not.be.nil
         tasks[:mappedtask].target.should.be.equal :task2
 
-        TestSif.default.should.be.equal :task1
+        TestCaty.default.should.be.equal :task1
     end
 
     it 'should have global options' do
-        gopts = TestSif.global_options
+        gopts = TestCaty.global_options
         gopts.length.should.be.equal 3
         gopts.sort_by(&:name)
 
@@ -56,7 +56,7 @@ describe 'Sif' do
     end
 
     it 'should have task options' do
-        opts = TestSif.tasks[:task2].instance_variable_get(:@options)
+        opts = TestCaty.tasks[:task2].instance_variable_get(:@options)
         opts.should.not.be.nil
         opts.length.should.be.equal 3
         opts.sort! do |a,b|

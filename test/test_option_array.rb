@@ -1,12 +1,12 @@
 require 'rubygems'
 require 'bacon'
 require 'facon'
-require 'sif'
+require 'caty'
 
 describe 'An OptionArray' do
 
     it 'should grep' do
-        a = Sif::OptionArray.new
+        a = Caty::OptionArray.new
         mock1 = mock('beer', :name => 'beer')
         mock2 = mock('rootbeer', :name => 'rootbeer')
 

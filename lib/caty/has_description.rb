@@ -1,5 +1,5 @@
 
-module Sif::HasDescription
+module Caty::HasDescription
 
     attr_accessor :description
 

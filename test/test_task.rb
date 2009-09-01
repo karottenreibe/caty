@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bacon'
 require 'facon'
-require 'sif'
+require 'caty'
 
 describe 'A Task' do
 
@@ -11,7 +11,7 @@ describe 'A Task' do
         meth.should.receive(:call).with('beer')
         meth.should.receive(:bind).with(context).and_return(meth)
 
-        t = Sif::Task.new('brew_beer', meth, mock('options', :grep! => nil))
+        t = Caty::Task.new('brew_beer', meth, mock('options', :grep! => nil))
         t.parse!(%w{beer})
         t.execute(context)
     end
@@ -20,7 +20,7 @@ describe 'A Task' do
         options = mock('options')
         options.should.receive(:grep!).with(%w{beer}).and_return(options)
 
-        t = Sif::Task.new('brew_beer', nil, options)
+        t = Caty::Task.new('brew_beer', nil, options)
         t.parse!(%w{beer}).should.equal options
     end
 

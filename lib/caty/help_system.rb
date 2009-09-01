@@ -1,10 +1,10 @@
 
-module Sif::HelpSystem
+module Caty::HelpSystem
 
     #
-    # Interface for Sif's help system.
+    # Interface for Caty's help system.
     # Displays either a general help page for all tasks
-    # and options known to Sif in case no argument was given;
+    # and options known to Caty in case no argument was given;
     # or a page descriping a certain task/option.
     #
     def help( task_or_option = nil )
@@ -19,7 +19,7 @@ module Sif::HelpSystem
 
     #
     # Displays the auto-generated help for all tasks,
-    # options and global options known to Sif.
+    # options and global options known to Caty.
     #
     def help_overview
         task_descs    = self.taskarray.map(&:to_help)
@@ -53,11 +53,11 @@ module Sif::HelpSystem
 
         item     = @tasks.resolve(token) || goptions.find { |item| item.name == token }
 
-        if item.nil? || item.is_a?(Sif::DirectMapping)
+        if item.nil? || item.is_a?(Caty::DirectMapping)
             $stdout.puts "Sorry, but I don't know `#{token}'"
         else
             aliases = @tasks.find_all do |_,task|
-                task.is_a?(Sif::Indirection) and task.target == item.name
+                task.is_a?(Caty::Indirection) and task.target == item.name
             end.map(&:first).join(', ')
 
             help_text = item.to_help
@@ -77,7 +77,7 @@ module Sif::HelpSystem
     #
     def taskarray
         @tasks.to_a.reject do |task|
-            task.is_a?(Sif::Indirection)
+            task.is_a?(Caty::Indirection)
         end
     end
 
