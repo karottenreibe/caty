@@ -11,7 +11,25 @@ module Caty::HelpSystem
         if task_or_option.nil?
             help_overview
         else
-            token_help(task_or_option)
+            token_help(task_or_option.to_sym)
+        end
+    end
+    
+    #
+    # Applies the standard help task
+    #
+    def help_task
+        self.class_eval do
+            desc('[TOKEN]', cut("
+                Provides help about the program.
+                A TOKEN is the name of a task or an option, e.g. 'help' for
+                the help task or 'version' for the --version option.
+                If a TOKEN is given, help for that specific TOKEN is displayed.
+                Otherwise, an overview of all the tasks and options is shown.
+            "))
+            def help( task_or_option = nil )
+                self.class.help(task_or_option)
+            end
         end
     end
 
@@ -31,7 +49,7 @@ module Caty::HelpSystem
         $stdout.puts
 
         task_descs.each do |desc|
-            $stdout.puts "#{desc[0].ljust(column_width)} #{desc[1]}"
+            $stdout.puts "#{desc[0].ljust(column_width)}  # #{desc[1]}"
         end
 
         $stdout.puts
@@ -40,7 +58,7 @@ module Caty::HelpSystem
         $stdout.puts
 
         goption_descs.each do |desc|
-            $stdout.puts "#{desc[0].ljust(column_width)} #{desc[1]}"
+            $stdout.puts "#{desc[0].ljust(column_width)}  # #{desc[1]}"
         end
     end
 
@@ -53,7 +71,7 @@ module Caty::HelpSystem
 
         item     = @tasks.resolve(token) || goptions.find { |item| item.name == token }
 
-        if item.nil? || item.is_a?(Caty::DirectMapping)
+        if item.nil?
             $stdout.puts "Sorry, but I don't know `#{token}'"
         else
             aliases = @tasks.find_all do |_,task|

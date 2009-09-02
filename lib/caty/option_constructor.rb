@@ -39,7 +39,7 @@ class Caty::OptionConstructor
     #
     def initialize( option_klass )
         @klass     = option_klass
-        @options   = Array.new
+        @options   = Caty::OptionArray.new
     end
 
     #

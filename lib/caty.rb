@@ -172,7 +172,8 @@ class Caty
         #
         def global_options( &block )
             initialize_instance
-            @global_options += Caty::OptionConstructor.new(Caty::GlobalOption).construct(&block)
+            constructor = Caty::OptionConstructor.new(Caty::GlobalOption)
+            @global_options.concat(constructor.construct(&block))
         end
 
         #

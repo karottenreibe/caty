@@ -56,7 +56,7 @@ class Caty::Task
     end
 
     def to_s
-        returning(@name) do |output|
+        returning(@name.to_s) do |output|
             output << " #{@usage}" unless @usage.nil?
 
             @options.each do |option|
