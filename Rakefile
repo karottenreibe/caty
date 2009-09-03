@@ -1,29 +1,32 @@
-# -*- ruby -*-
+require 'jeweler'
 
-require 'rubygems'
-require 'hoe'
-
-module Rake
-    def self.remove_task(task_name)
-        Rake.application.instance_variable_get('@tasks').delete(task_name.to_s)
-    end
+task :release do
+    sh "vim HISTORY.markdown"
+    sh "vim README.markdown"
+    sh "git commit -a -m 'prerelease adjustments'; true"
 end
 
-Hoe.spec('caty') do |p|
-    p.version = '0.0.1'
-    p.developer('Fabian Streitel', 'karottenreibe@gmail.com')
-    p.remote_rdoc_dir = 'rdoc'
-    p.extra_deps = %w{ohash}
+Jeweler::Tasks.new do |gem|
+    gem.name = 'caty'
+    gem.summary = gem.description =
+        'Caty is a command line parser that maps arguments to instance methods'
+    gem.email = 'karottenreibe@gmail.com'
+    gem.homepage = 'http://github.com/karottenreibe/caty'
+    gem.authors = ['Fabian Streitel']
+    gem.rubyforge_project = 'caty'
+    gem.add_dependency('ohash')
 end
 
-task :manifest do
-    sh 'rake check_manifest | grep -v "(in " | patch'
-    sh 'vim Manifest.txt'
+Jeweler::RubyforgeTasks.new
+
+require 'rake/rdoctask'
+Rake::RDocTask.new do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = 'Caty'
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-Rake.remove_task :test
-task :test do 
-    sh 'bacon -Ilib test/*'
+task :test do
+    sh 'bacon -Ilib test/test_*.rb'
 end
 
-# vim: syntax=ruby

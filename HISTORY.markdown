@@ -1,6 +1,7 @@
-=== 1.0.0 / 2009-07-06
+0.0.1
+=====
 
-* 1 major enhancement
-
-  * Birthday!
+*   First release
+*   Support for tasks, parameters, global
+    and task-specific options
 
