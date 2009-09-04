@@ -64,9 +64,9 @@ class Caty
                 else
                     caty.task_options = task.parse!(args)
 
-                    caty.instance_eval(@before) unless @before.nil?
+                    caty.instance_eval(&@before) unless @before.nil?
                     task.execute(caty)
-                    caty.instance_eval(@after) unless @after.nil?
+                    caty.instance_eval(&@after) unless @after.nil?
                 end
 
                 return true
