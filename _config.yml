@@ -1,6 +1,7 @@
 ---
 pygments: true
 haml: true
+sass: true
 permalink: pretty
 
 post_defaults:
