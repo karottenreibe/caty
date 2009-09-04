@@ -1,0 +1,7 @@
+---
+pygments: true
+haml: true
+permalink: pretty
+
+post_defaults:
+  layout: default
