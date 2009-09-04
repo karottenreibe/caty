@@ -5,4 +5,4 @@ sass: true
 permalink: pretty
 
 post_defaults:
-  layout: default
+  layout: post

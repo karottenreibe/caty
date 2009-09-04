@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang='en-US' xml:lang='en-US' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <title>{{ page.title }}</title>
+    <link href='/static/styles.css' rel='stylesheet' type='text/css' />
+    <link href='/static/syntax.css' rel='stylesheet' type='text/css' />
+  </head>
+  <body>
+    <div id='header'>
+      <div id='logo'>
+        <a href='/' title='Go to the topmost page'>
+          <img src='/static/caty.png' title="Caty's logo: The word `Caty' with a stylized cat eye in the C" />
+        </a>
+      </div>
+      <div id='menu'>
+        <a href='/blog' title='View the blog posts about Caty'>Blog</a>
+        <a class='important' href='/presentation' title='Download the presentation -- the quickest way to get to know Caty'>Presentation</a>
+        <a href='/kitty' title='View the Kitty demo application'>kitty.rb</a>
+      </div>
+    </div>
+    <div id='content'>{{ content }}</div>
+    <div id='footer'>
+      <div class='copyleft'>
+        (c) 2009 by karottenreibe [
+        <span class='uiae'>_(ä)t_ gmail</span>
+        _d(ö)t_ com]
+        <br />
+        Licensed under the
+        <a href='/static/LICENSE.txt' title='The license of the stuff on this webpage, except where otherwise specified'>
+          DON'T PANIC License 1.1
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

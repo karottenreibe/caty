@@ -1,0 +1,59 @@
+!green = #071
+!lightgreen = #5b6
+!white = #fff
+
+body, html
+  :margin 0
+  :padding 0
+  :background-color= !white
+
+a
+  :color= !green
+  :text-decoration none
+
+  &:visited
+    :color= !lightgreen
+  &:hover
+    :text-decoration underline
+
+img
+  :border none
+
+#header
+
+  #logo
+    :width 500px
+    :text-align center
+    :margin auto
+
+    a
+    img
+
+  #menu
+    :text-align center
+    :background-color= !green
+    :border
+      :top= 4px "solid" !lightgreen
+      :bottom= 4px "solid" !lightgreen
+
+    a
+      :color= !white
+      :padding 5px
+      :font-size 1.25em
+      :font-weight bold
+
+      &:hover
+        :background-color= !lightgreen
+
+    a.important
+
+#content
+  :margin 30px
+
+#footer
+  :border-top= 4px "solid" !green
+
+  .copyleft
+    :float right
+    :margin 10px
+
