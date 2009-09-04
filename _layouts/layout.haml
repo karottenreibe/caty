@@ -3,7 +3,7 @@
 %html{html_attrs}
 
   %head
-    %title {{ page.title }}
+    %title= page.title
     %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/static/styles.css' }
     %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/static/syntax.css' }
 
@@ -18,7 +18,7 @@
         %a.important{ :href => '/presentation', :title => 'Download the presentation -- the quickest way to get to know Caty' } Presentation
         %a{ :href => '/kitty', :title => 'View the Kitty demo application' } kitty.rb
 
-    #content {{ content }}
+    #content= content
 
     #footer
       .copyleft
