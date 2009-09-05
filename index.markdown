@@ -3,10 +3,8 @@ title: Caty -- Command line parsing in Ruby
 layout: layout
 ---
 
-![Caty at work with the Kitty application] [consoleimage]
 
-What is Caty
-============
+# What is Caty? #
 
 Caty is a framework (oh that word...) for parsing command line arguments
 in Ruby. It is intended for projects that are of medium size and offers
@@ -33,8 +31,10 @@ that resembles rake's `desc` system.
 Furthermore it provides some functionality to allow for easier **separation
 of concers**.
 
-Getting to know Caty
-====================
+![Caty at work with the Kitty application] [consoleimage]
+
+
+# Getting to know Caty #
 
 You can take a peek at the [presentation about Caty] [presentation], a
 small, roughly 10 minute slide show that tells you the basics of Caty in
@@ -43,14 +43,14 @@ a nice, enjoyable way.
 Or you could also have a look at the [Kitty app] [kitty], a small sample
 application that features the gros of Caty's features in a compressed way.
 
-Alternatives
-============
+
+# Alternatives #
 
 There are numerous alternatives to Caty, which you might want to consider
 as well. For a detailed comparison with Caty, see [the comparison page] [comparison].
 
-Thanks
-======
+
+# Thanks #
 
 Caty was inspired by the great [Thor][], the known-to-all [Rake][].
 Both helped me find the way in this topic.
