@@ -36,7 +36,7 @@ of concers**.
 Getting to know Caty
 ====================
 
-You can take a peeka at the [presentation about Caty] [presentation], a
+You can take a peek at the [presentation about Caty] [presentation], a
 small, roughly 10 minute slide show that tells you the basics of Caty in
 a nice, enjoyable way.
 
