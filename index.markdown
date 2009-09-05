@@ -3,6 +3,8 @@ title: Caty -- Command line parsing in Ruby
 layout: layout
 ---
 
+![Caty at work with the Kitty application] [consoleimage]
+
 What is Caty
 ============
 
@@ -38,8 +40,14 @@ You can take a peeka at the [presentation about Caty] [presentation], a
 small, roughly 10 minute slide show that tells you the basics of Caty in
 a nice, enjoyable way.
 
-Or you could also have a look at the [Kitty app] [kitty], a small sample application
-that features the gros of Caty's features in a compressed way.
+Or you could also have a look at the [Kitty app] [kitty], a small sample
+application that features the gros of Caty's features in a compressed way.
+
+Alternatives
+============
+
+There are numerous alternatives to Caty, which you might want to consider
+as well. For a detailed comparison with Caty, see [the comparison page] [comparison].
 
 Thanks
 ======
@@ -49,6 +57,10 @@ Both helped me find the way in this topic.
 
 [thor]:          http://yehudakatz.com/2008/05/12/by-thors-hammer/  "The great Thor, an inspiration for Caty"
 [rake]:          http://rake.rubyforge.org/                         "The great Rake, an inspiration for Caty"
+
 [presentation]:  /presenty                                          "A presentation about Caty -- great for a quick introduction"
-[kitty]:         /kitty.html                                        "The kitty application -- a small show-off of Caty's functionalities"
+[kitty]:         /kitty                                             "The kitty application -- a small show-off of Caty's functionalities"
+[comparison]:    /comparison.html                                   "A comparison of Caty and other Ruby command line parsers"
+
+[consoleimage]:  /console.png                                       "Caty at work in the Kitty example application"
 
