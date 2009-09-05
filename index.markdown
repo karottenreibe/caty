@@ -1,0 +1,54 @@
+---
+title: Caty -- Command line parsing in Ruby
+layout: layout
+---
+
+What is Caty
+============
+
+Caty is a framework (oh that word...) for parsing command line arguments
+in Ruby. It is intended for projects that are of medium size and offers
+great facilities to easily rig your application with command line
+capabilities.
+
+It needs minimal code overhead to set up, but to do so it imposes a
+certain schema on the command line interface of your program.
+
+It does so by directly mapping directives (so-called **tasks**) from the
+user's arguments to instance methods of a class in your application.
+
+It also supports
+
+*   **arguments** to tasks mapped directly to the instance methods'
+    argument list
+*   options -- both application global (`--debug`) and task specific
+    (`-d`)
+*   providing aliases to tasks (so-called **mappings**)
+
+And features a **help system** (`app.rb help` and `app.rb help sometask`)
+that resembles rake's `desc` system.
+
+Furthermore it provides some functionality to allow for easier **separation
+of concers**.
+
+Getting to know Caty
+====================
+
+You can take a peeka at the [presentation about Caty] [presentation], a
+small, roughly 10 minute slide show that tells you the basics of Caty in
+a nice, enjoyable way.
+
+Or you could also have a look at the [Kitty app] [kitty], a small sample application
+that features the gros of Caty's features in a compressed way.
+
+Thanks
+======
+
+Caty was inspired by the great [Thor][], the known-to-all [Rake][].
+Both helped me find the way in this topic.
+
+[thor]:          http://yehudakatz.com/2008/05/12/by-thors-hammer/  "The great Thor, an inspiration for Caty"
+[rake]:          http://rake.rubyforge.org/                         "The great Rake, an inspiration for Caty"
+[presentation]:  /presenty                                          "A presentation about Caty -- great for a quick introduction"
+[kitty]:         /kitty.html                                        "The kitty application -- a small show-off of Caty's functionalities"
+
