@@ -1,10 +1,12 @@
 !green = #071
 !lightgreen = #5b6
 !white = #fff
+!black = #555
 
 body, html
   :margin 0
   :padding 0
+  :color= !black
   :background-color= !white
   :font-family monospace
 
@@ -53,8 +55,20 @@ img
 #content
   :margin 30px
 
+  img
+    :float right
+    :border= 2px "solid" !black
+    :margin 5px
+
+  #posts
+    .meta
+      :padding 10px
+    .link
+      :font-size 1.5em
+
 #footer
   :border-top= 4px "solid" !green
+  :clear both
 
   .copyleft
     :float right

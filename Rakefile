@@ -7,6 +7,6 @@ task :deploy => [:clean] do
 end
 
 task :test => [:clean] do
-    sh 'jekyll --server'
+    sh 'jekyll --server 4567'
 end
 

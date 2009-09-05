@@ -3,6 +3,8 @@ title: Caty -- Presenty
 layout: layout
 ---
 
+![A  slide from the presentation][slide]
+
 The Presentation
 ================
 
@@ -16,5 +18,6 @@ minutes to enjoy ;-)
 So go ahead, take the time and
 [grab the slideware while it's still hot] [presentation].
 
-[presentation]: /presentation.pdf "The presentation -- hot and fresh"
+[presentation]:   /presenty/presenty.pdf   "The presentation -- hot and fresh"
+[slide]:          /presenty/slide.png      "An example slide from the presentation"
 
