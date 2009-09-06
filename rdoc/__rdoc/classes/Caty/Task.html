@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Caty::Task</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Caty::Task</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/caty/task_rb.html">
+                lib/caty/task.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Represents a single task. A <a href="Task.html">Task</a> object is created
+for every public method created in the <a href="../Caty.html">Caty</a>
+subclass.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000033">execute</a>&nbsp;&nbsp;
+      <a href="#M000031">new</a>&nbsp;&nbsp;
+      <a href="#M000032">parse!</a>&nbsp;&nbsp;
+      <a href="#M000034">resolve</a>&nbsp;&nbsp;
+      <a href="#M000035">to_help</a>&nbsp;&nbsp;
+      <a href="#M000036">to_s</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="Helpers.html">Caty::Helpers</a></span>
+        <span class="include-name"><a href="HasDescription.html">Caty::HasDescription</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">name</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">usage</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
+
+        <div class="method-heading">
+          <a href="#M000031" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">( name, instance_method, options )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a <a href="Task.html#M000031">new</a> task with the given name for
+the given instance_method.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000031-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty/task.rb, line 18</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">name</span>, <span class="ruby-identifier">instance_method</span>, <span class="ruby-identifier">options</span> )
+        <span class="ruby-ivar">@name</span>, <span class="ruby-ivar">@instance_method</span>, <span class="ruby-ivar">@options</span> =
+            <span class="ruby-identifier">name</span>, <span class="ruby-identifier">instance_method</span>, <span class="ruby-identifier">options</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+          <a href="#M000033" class="method-signature">
+          <span class="method-name">execute</span><span class="method-args">( context )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Executes the associated instance_method by binding it to the given
+<em>context</em>.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000033-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty/task.rb, line 38</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>( <span class="ruby-identifier">context</span> )
+        <span class="ruby-ivar">@instance_method</span>.<span class="ruby-identifier">bind</span>(<span class="ruby-identifier">context</span>).<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-ivar">@args</span>)
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="#M000032" class="method-signature">
+          <span class="method-name">parse!</span><span class="method-args">( args )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Tries to remove the options defined for this task from the args Array.
+Returns an OpenHash containing the retrieved options.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000032-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty/task.rb, line 29</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse!</span>( <span class="ruby-identifier">args</span> )
+        <span class="ruby-ivar">@args</span> = <span class="ruby-identifier">args</span>
+        <span class="ruby-ivar">@options</span>.<span class="ruby-identifier">grep!</span>(<span class="ruby-identifier">args</span>)
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+          <a href="#M000034" class="method-signature">
+          <span class="method-name">resolve</span><span class="method-args">( task_hash )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Resolving end point. See Indirection#resolve() for more information.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000034-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty/task.rb, line 46</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">resolve</span>( <span class="ruby-identifier">task_hash</span> )
+        <span class="ruby-keyword kw">self</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
+
+        <div class="method-heading">
+          <a href="#M000035" class="method-signature">
+          <span class="method-name">to_help</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an array of the string representation of the task and its options
+to be used by the help system.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000035-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty/task.rb, line 54</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_help</span>
+        [ <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_s</span> , <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">short_description</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">description</span> ]
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+          <a href="#M000036" class="method-signature">
+          <span class="method-name">to_s</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000036-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty/task.rb, line 58</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">returning</span>(<span class="ruby-ivar">@name</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">output</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; #{@usage}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@usage</span>.<span class="ruby-identifier">nil?</span>
+
+            <span class="ruby-ivar">@options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">option</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; #{option}&quot;</span>
+            <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
