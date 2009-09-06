@@ -1,8 +1,10 @@
 #
-# This a mean rip-off of the great, one-and-only Thor.
-# Kudos to Yehuda Katz.
+# Caty is a command line parser that supports tasks as well as
+# options and maps user input directly to instance methods.
 #
-# http://yehudakatz.com/2008/05/12/by-thors-hammer/
+# Inspired by Thor (http://yehudakatz.com/2008/05/12/by-thors-hammer)
+#
+# Kudos to Yehuda Katz.
 #
 
 #
