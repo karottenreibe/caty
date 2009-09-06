@@ -16,5 +16,7 @@ task :rdoc do
     sh 'mv rdoc __rdoc'
     sh 'git checkout gh-pages'
     sh 'mv __rdoc rdoc'
+    sh 'git add rdoc'
+    sh 'git commit -a -m "updated rdoc"'
 end
 

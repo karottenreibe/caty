@@ -8,5 +8,5 @@ layout: layout
 The [kitty.rb] file is a simple, small ruby program that demonstrates
 most of Caty's functionality.
 
-[[kitty.rb]]:   /kitty/kitty.rb     "The Kitty example application"
+[kitty.rb]:   /kitty/kitty.rb     "The Kitty example application"
 
