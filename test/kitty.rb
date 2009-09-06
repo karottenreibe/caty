@@ -22,12 +22,12 @@ class Kitty < Caty
     #
     desc('SOMETHING', cut("
         Eats SOMETHING.
-        You can tell it to -repeat the eating as often as you like.
+        You can give the kitty any -amount of food.
     "))
-    task_options :repeat => 1
+    task_options :amount => 1
 
     def eat( something )
-        task_options.repeat.times { puts "The kitty eats #{something}!" }
+        puts "The kitty eats #{task_options.amount} #{something}!"
     end
 
     #
