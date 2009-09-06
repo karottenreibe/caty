@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Caty</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Caty</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="Caty/HasDescription.html" class="link">Caty::HasDescription</a><br />
+Module <a href="Caty/HelpSystem.html" class="link">Caty::HelpSystem</a><br />
+Module <a href="Caty/Helpers.html" class="link">Caty::Helpers</a><br />
+Class <a href="Caty/BooleanConverter.html" class="link">Caty::BooleanConverter</a><br />
+Class <a href="Caty/Converter.html" class="link">Caty::Converter</a><br />
+Class <a href="Caty/GlobalOption.html" class="link">Caty::GlobalOption</a><br />
+Class <a href="Caty/IntegerConverter.html" class="link">Caty::IntegerConverter</a><br />
+Class <a href="Caty/NoSuchTaskError.html" class="link">Caty::NoSuchTaskError</a><br />
+Class <a href="Caty/Option.html" class="link">Caty::Option</a><br />
+Class <a href="Caty/OptionArgumentError.html" class="link">Caty::OptionArgumentError</a><br />
+Class <a href="Caty/OptionArray.html" class="link">Caty::OptionArray</a><br />
+Class <a href="Caty/OptionConstructor.html" class="link">Caty::OptionConstructor</a><br />
+Class <a href="Caty/StringConverter.html" class="link">Caty::StringConverter</a><br />
+Class <a href="Caty/Task.html" class="link">Caty::Task</a><br />
+Class <a href="Caty/TaskHash.html" class="link">Caty::TaskHash</a><br />
+
+    </div>
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
