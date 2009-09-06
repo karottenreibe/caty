@@ -48,6 +48,15 @@ Also, there's the [rdoc] documentation.
 And finally you could use any of the other [resources].
 
 
+# Applications that use Caty #
+
+These applications use Caty for their command line parsing:
+
+*   [tdr][] -- A todo list manager for the console
+
+If you know any more, I'd love to put them up here!
+
+
 # Alternatives #
 
 There are numerous alternatives to Caty, which you might want to consider
@@ -67,6 +76,8 @@ Both helped me find the way in this topic.
 [comparison]:    /comparison.html                                   "A comparison of Caty and other Ruby command line parsers"
 [rdoc]:          /rdow                                              "Caty's rdoc documentation"
 [resources]:     /resources.html                                    "Other resources around Caty"
+
+[tdr]:           http://github.com/karottenreibe/tdr                "tdr -- A console todo manager written in Ruby"
 
 [consoleimage]:  /console.png                                       "Caty at work in the Kitty example application"
 
