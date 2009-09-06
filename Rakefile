@@ -21,3 +21,9 @@ task :rdoc do
     sh 'git commit -a -m "updated rdoc"'
 end
 
+task :kitty do
+    sh 'git checkout master test/kitty.rb'
+    sh 'mv test/kitty.rb kitty/kitty.rb'
+    sh 'rm -r test'
+end
+

@@ -1,13 +1,13 @@
 !green = #071
 !lightgreen = #5b6
 !white = #fff
-!black = #555
+!grey = #555
 !palegreen = #efc
 
 body, html
   :margin 0
   :padding 0
-  :color= !black
+  :color= !grey
   :background-color= !white
   :font-family monospace
 
@@ -23,11 +23,17 @@ a
 img
   :border none
 
-code
+=code
   :background-color= !palegreen
-  :padding 2px
   :border-top= 1px "dotted" !lightgreen
+  :padding 2px
+
+code
+  +code
   :display inline-block
+
+.highlight
+  +code
 
 .strong
   :font-weight bold
@@ -66,7 +72,7 @@ code
 
   img
     :float right
-    :border= 2px "solid" !black
+    :border= 2px "solid" !grey
     :margin 5px
 
   #posts
