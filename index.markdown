@@ -4,12 +4,14 @@ layout: layout
 ---
 
 
+![Caty at work with the Kitty application] [image]
+
 # What is Caty? #
 
 Caty is a framework (oh that word...) for parsing command line arguments
 in Ruby. It is intended for projects that are of medium size and offers
 great facilities to easily rig your application with command line
-capabilities.
+capabilities. It was designed to be as subtle as possible.
 
 It needs minimal code overhead to set up, but to do so it imposes a
 certain schema on the command line interface of your program.
@@ -30,8 +32,6 @@ that resembles rake's `desc` system.
 
 Furthermore it provides some functionality to allow for easier **separation
 of concers**.
-
-![Caty at work with the Kitty application] [consoleimage]
 
 
 # Getting to know Caty #
@@ -79,5 +79,5 @@ Both helped me find the way in this topic.
 
 [tdr]:           http://github.com/karottenreibe/tdr                "tdr -- A console todo manager written in Ruby"
 
-[consoleimage]:  /console.png                                       "Caty at work in the Kitty example application"
+[image]:         /question.png                                      "A big questionmark"
 
