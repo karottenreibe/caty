@@ -43,6 +43,10 @@ a nice, enjoyable way.
 Or you could also have a look at the [Kitty app] [kitty], a small sample
 application that features the gros of Caty's features in a compressed way.
 
+Also, there's the [rdoc] documentation.
+
+And finally you could use any of the other [resources].
+
 
 # Alternatives #
 
@@ -61,6 +65,8 @@ Both helped me find the way in this topic.
 [presentation]:  /presenty                                          "A presentation about Caty -- great for a quick introduction"
 [kitty]:         /kitty                                             "The kitty application -- a small show-off of Caty's functionalities"
 [comparison]:    /comparison.html                                   "A comparison of Caty and other Ruby command line parsers"
+[rdoc]:          /rdow                                              "Caty's rdoc documentation"
+[resources]:     /resources.html                                    "Other resources around Caty"
 
 [consoleimage]:  /console.png                                       "Caty at work in the Kitty example application"
 
