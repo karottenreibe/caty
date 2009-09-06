@@ -10,3 +10,11 @@ task :test => [:clean] do
     sh 'jekyll --server 4567'
 end
 
+task :rdoc do
+    sh 'git checkout master'
+    sh 'rake rdoc'
+    sh 'mv rdoc __rdoc'
+    sh 'git checkout gh-pages'
+    sh 'mv __rdoc rdoc'
+end
+
