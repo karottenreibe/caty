@@ -2,6 +2,9 @@
 # Caty is a command line parser that supports tasks as well as
 # options and maps user input directly to instance methods.
 #
+# To find out more about caty, file bug reports and other stuff,
+# go to http://karottenreibe.github.com/caty.
+#
 # Inspired by Thor (http://yehudakatz.com/2008/05/12/by-thors-hammer)
 #
 # Kudos to Yehuda Katz.
