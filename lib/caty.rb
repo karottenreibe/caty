@@ -64,9 +64,9 @@ class Caty
                 else
                     caty.task_options = task.parse!(args)
 
-                    caty.instance_eval(&@before) unless @before.nil?
+                    caty.instance_exec(task_name.to_sym, &@before) unless @before.nil?
                     task.execute(caty)
-                    caty.instance_eval(&@after) unless @after.nil?
+                    caty.instance_exec(task_name.to_sym, &@after)  unless @after.nil?
                 end
 
                 return true
@@ -197,10 +197,11 @@ class Caty
         #
         # Defines a block of code that will be executed right
         # before any task is called.
-        # _self_ will point to the Caty instance.
+        # _self_ will point to the Caty instance and the name of
+        # the task (Symbol) will be given as the only argument.
         #
-        #     before do
-        #         puts self.inspect
+        #     before do |task|
+        #         puts task
         #     end
         #
         def before( &block )
@@ -219,12 +220,14 @@ class Caty
         #
         # Defines a block of code that will be executed right
         # after any task is called.
-        # _self_ will point to the Caty instance.
+        # _self_ will point to the Caty instance and the name of
+        # the task (Symbol) will be given as the only argument.
         #
-        # NOTE: this code will not be executed if an error occured.
+        # NOTE: this code will not be executed if an error occured
+        # during task execution
         #
-        #     after do
-        #         puts self.inspect
+        #     after do |task|
+        #         puts task
         #     end
         #
         def after( &block )

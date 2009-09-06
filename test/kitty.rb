@@ -28,17 +28,30 @@ class Kitty < Caty
 
     def eat( something )
         task_options.repeat.times { puts "The kitty eats #{something}!" }
-        puts 'meow!' unless global_options.quiet
     end
 
     #
     # By default the kitty just meows at you.
     #
     def meow
-        puts 'meow!' unless global_options.quiet
+        puts 'meow!'
     end
 
     default :meow
+
+    #
+    # It likes to meow a lot.
+    #
+    before do |task|
+        puts 'meow!' unless global_options.quiet or task == :help
+    end
+
+    #
+    # And it tells you when it's done.
+    #
+    after do |task|
+        puts 'purrr...' unless task == :help
+    end
 
     #
     # If you ask it politely, it will tell you what it can do.
@@ -56,11 +69,12 @@ Kitty.append do
 
     #
     # It can be sleepy...
+    # And doze away...
     #
     desc("Sleeps a bit.")
+    map :doze => :sleep
 
     def sleep
-        puts 'meow!' unless global_options.quiet
         puts 'The kitty sleeps...'
     end
 
