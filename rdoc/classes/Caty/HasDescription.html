@@ -72,6 +72,12 @@
 
   <div id="contextContent">
 
+    <div id="description">
+      <p>
+Mixin for everything that can has description ;-)
+</p>
+
+    </div>
 
 
    </div>
@@ -80,7 +86,7 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000007">short_description</a>&nbsp;&nbsp;
+      <a href="#M000011">short_description</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -115,25 +121,25 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000007" class="method-detail">
-        <a name="M000007"></a>
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
 
         <div class="method-heading">
-          <a href="#M000007" class="method-signature">
+          <a href="#M000011" class="method-signature">
           <span class="method-name">short_description</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-If a description was set for this task, this will return the first line of
-that desciption. Else nil will be returned.
+If a description was set for this object, this will return the first line
+of that desciption. Else nil will be returned.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000007-source">
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty/has_description.rb, line 11</span>
+<span class="ruby-comment cmt"># File lib/caty/has_description.rb, line 17</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">short_description</span>
         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">description</span>.<span class="ruby-identifier">nil?</span>
             <span class="ruby-keyword kw">nil</span>

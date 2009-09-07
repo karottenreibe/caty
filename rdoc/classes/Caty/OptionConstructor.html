@@ -91,6 +91,10 @@ Constructs options using a DSL, e.g:
        integer :nother_one
   end
 </pre>
+<p>
+Used by <a href="../Caty.html">Caty</a> when Caty::global_options() is
+called.
+</p>
 
     </div>
 
@@ -101,10 +105,10 @@ Constructs options using a DSL, e.g:
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000029">construct</a>&nbsp;&nbsp;
-      <a href="#M000028">new</a>&nbsp;&nbsp;
-      <a href="#M000027">register</a>&nbsp;&nbsp;
-      <a href="#M000026">types</a>&nbsp;&nbsp;
+      <a href="#M000030">construct</a>&nbsp;&nbsp;
+      <a href="#M000029">new</a>&nbsp;&nbsp;
+      <a href="#M000028">register</a>&nbsp;&nbsp;
+      <a href="#M000027">types</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -126,30 +130,57 @@ Constructs options using a DSL, e.g:
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000028" class="method-detail">
-        <a name="M000028"></a>
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
 
         <div class="method-heading">
-          <a href="#M000028" class="method-signature">
+          <a href="#M000029" class="method-signature">
           <span class="method-name">new</span><span class="method-args">( option_klass )</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Create a <a href="OptionConstructor.html#M000028">new</a> <a
+Creates a <a href="OptionConstructor.html#M000029">new</a> <a
 href="OptionConstructor.html">OptionConstructor</a> that constructs the
 given options of the given class.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000029-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty/option_constructor.rb, line 46</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">option_klass</span> )
+        <span class="ruby-ivar">@klass</span>     = <span class="ruby-identifier">option_klass</span>
+        <span class="ruby-ivar">@options</span>   = <span class="ruby-constant">Caty</span><span class="ruby-operator">::</span><span class="ruby-constant">OptionArray</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+          <a href="#M000028" class="method-signature">
+          <span class="method-name">register</span><span class="method-args">( type )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Registers an option type (symbol) with the constructor.
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000028-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty/option_constructor.rb, line 40</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">option_klass</span> )
-        <span class="ruby-ivar">@klass</span>     = <span class="ruby-identifier">option_klass</span>
-        <span class="ruby-ivar">@options</span>   = <span class="ruby-constant">Caty</span><span class="ruby-operator">::</span><span class="ruby-constant">OptionArray</span>.<span class="ruby-identifier">new</span>
-    <span class="ruby-keyword kw">end</span>
+<span class="ruby-comment cmt"># File lib/caty/option_constructor.rb, line 35</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">register</span>( <span class="ruby-identifier">type</span> )
+            <span class="ruby-ivar">@types</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+            <span class="ruby-ivar">@types</span> <span class="ruby-operator">&lt;&lt;</span>  <span class="ruby-identifier">type</span>
+        <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -160,33 +191,6 @@ given options of the given class.
 
         <div class="method-heading">
           <a href="#M000027" class="method-signature">
-          <span class="method-name">register</span><span class="method-args">( type )</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p>
-Registers an option type (symbol) with the constructor.
-</p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000027-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/caty/option_constructor.rb, line 29</span>
-        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">register</span>( <span class="ruby-identifier">type</span> )
-            <span class="ruby-ivar">@types</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
-            <span class="ruby-ivar">@types</span> <span class="ruby-operator">&lt;&lt;</span>  <span class="ruby-identifier">type</span>
-        <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000026" class="method-detail">
-        <a name="M000026"></a>
-
-        <div class="method-heading">
-          <a href="#M000026" class="method-signature">
           <span class="method-name">types</span><span class="method-args">()</span>
           </a>
         </div>
@@ -194,13 +198,13 @@ Registers an option type (symbol) with the constructor.
         <div class="method-description">
           <p>
 Returns an array of all the option <a
-href="OptionConstructor.html#M000026">types</a> registered.
+href="OptionConstructor.html#M000027">types</a> registered.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000026-source">
+            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000027-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty/option_constructor.rb, line 21</span>
+<span class="ruby-comment cmt"># File lib/caty/option_constructor.rb, line 27</span>
         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">types</span>
             <span class="ruby-ivar">@types</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
         <span class="ruby-keyword kw">end</span>
@@ -211,11 +215,11 @@ href="OptionConstructor.html#M000026">types</a> registered.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000029" class="method-detail">
-        <a name="M000029"></a>
+      <div id="method-M000030" class="method-detail">
+        <a name="M000030"></a>
 
         <div class="method-heading">
-          <a href="#M000029" class="method-signature">
+          <a href="#M000030" class="method-signature">
           <span class="method-name">construct</span><span class="method-args">( &amp;block )</span>
           </a>
         </div>
@@ -225,10 +229,10 @@ href="OptionConstructor.html#M000026">types</a> registered.
 Constructs the actual options according to the given block.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000029-source">
+            onclick="toggleCode('M000030-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000030-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty/option_constructor.rb, line 49</span>
+<span class="ruby-comment cmt"># File lib/caty/option_constructor.rb, line 55</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">construct</span>( <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">instance_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
         <span class="ruby-ivar">@options</span>

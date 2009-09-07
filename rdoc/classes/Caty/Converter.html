@@ -92,8 +92,8 @@ Base class for all option converters. Offers some metaprogramming.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000024">type</a>&nbsp;&nbsp;
-      <a href="#M000025">types</a>&nbsp;&nbsp;
+      <a href="#M000025">type</a>&nbsp;&nbsp;
+      <a href="#M000026">types</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -135,11 +135,11 @@ Base class for all option converters. Offers some metaprogramming.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000024" class="method-detail">
-        <a name="M000024"></a>
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
 
         <div class="method-heading">
-          <a href="#M000024" class="method-signature">
+          <a href="#M000025" class="method-signature">
           <span class="method-name">type</span><span class="method-args">( type, *allowed_defaults )</span>
           </a>
         </div>
@@ -147,14 +147,14 @@ Base class for all option converters. Offers some metaprogramming.
         <div class="method-description">
           <p>
 Registers a converter subclass for a <a
-href="Converter.html#M000024">type</a> (symbol) and some default value
+href="Converter.html#M000025">type</a> (symbol) and some default value
 classes
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000024-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000024-source">
+            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000025-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty/converters.rb, line 18</span>
+<span class="ruby-comment cmt"># File lib/caty/converters.rb, line 21</span>
         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type</span>( <span class="ruby-identifier">type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">allowed_defaults</span> )
             <span class="ruby-ivar">@@types</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
             <span class="ruby-ivar">@@types</span>[<span class="ruby-identifier">type</span>]     = <span class="ruby-keyword kw">self</span>
@@ -166,11 +166,11 @@ classes
         </div>
       </div>
 
-      <div id="method-M000025" class="method-detail">
-        <a name="M000025"></a>
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
 
         <div class="method-heading">
-          <a href="#M000025" class="method-signature">
+          <a href="#M000026" class="method-signature">
           <span class="method-name">types</span><span class="method-args">()</span>
           </a>
         </div>
@@ -186,10 +186,10 @@ Returns a hash containing
 for all converter subclasses
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000025-source">
+            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000026-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty/converters.rb, line 30</span>
+<span class="ruby-comment cmt"># File lib/caty/converters.rb, line 33</span>
         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">types</span>
             <span class="ruby-ivar">@@types</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
         <span class="ruby-keyword kw">end</span>

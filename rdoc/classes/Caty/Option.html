@@ -80,9 +80,13 @@
 
     <div id="description">
       <p>
-Represents a single option. An <a href="Option.html">Option</a> object is
-created for every option specified via Caty#task_options(). The sum of all
-options parsed is accessible via the Caty#options() method.
+Represents a single option.
+</p>
+<p>
+An <a href="Option.html">Option</a> object is created for every option
+specified via <a href="../Caty.html#M000004">Caty#task_options</a>(). The
+sum of all options parsed is accessible via the <a
+href="../Caty.html#M000004">Caty#task_options</a>() method.
 </p>
 
     </div>
@@ -94,10 +98,10 @@ options parsed is accessible via the Caty#options() method.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000016">grep!</a>&nbsp;&nbsp;
-      <a href="#M000015">new</a>&nbsp;&nbsp;
-      <a href="#M000018">prefix</a>&nbsp;&nbsp;
-      <a href="#M000017">to_s</a>&nbsp;&nbsp;
+      <a href="#M000017">grep!</a>&nbsp;&nbsp;
+      <a href="#M000016">new</a>&nbsp;&nbsp;
+      <a href="#M000019">prefix</a>&nbsp;&nbsp;
+      <a href="#M000018">to_s</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -139,18 +143,18 @@ options parsed is accessible via the Caty#options() method.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000015" class="method-detail">
-        <a name="M000015"></a>
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
 
         <div class="method-heading">
-          <a href="#M000015" class="method-signature">
+          <a href="#M000016" class="method-signature">
           <span class="method-name">new</span><span class="method-args">( name, default )</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Option.html#M000015">new</a> option with the given name
+Creates a <a href="Option.html#M000016">new</a> option with the given name
 and default value.
 </p>
 <p>
@@ -169,7 +173,7 @@ string value.
 integer value.
 
 </li>
-<li>a Integer, String or Boolean value the passed value is the default value,
+<li>an Integer, String or Boolean value the passed value is the default value,
 any given argument will be coerced into the given type.
 
 </li>
@@ -183,10 +187,10 @@ command line is interpreted as giving &#8216;true&#8217; as the argument.
 For all the other types, a MissingOptionArgumentError is thrown.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000015-source">
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty/option.rb, line 38</span>
+<span class="ruby-comment cmt"># File lib/caty/option.rb, line 42</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">name</span>, <span class="ruby-identifier">default</span> )
         <span class="ruby-ivar">@name</span>       = <span class="ruby-identifier">name</span>
         <span class="ruby-ivar">@converter</span>  = <span class="ruby-keyword kw">nil</span>
@@ -215,11 +219,11 @@ For all the other types, a MissingOptionArgumentError is thrown.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000016" class="method-detail">
-        <a name="M000016"></a>
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
 
         <div class="method-heading">
-          <a href="#M000016" class="method-signature">
+          <a href="#M000017" class="method-signature">
           <span class="method-name">grep!</span><span class="method-args">( args )</span>
           </a>
         </div>
@@ -230,10 +234,10 @@ Tries to remove the option from the args. Returns the value grepped for
 this option.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000016-source">
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty/option.rb, line 64</span>
+<span class="ruby-comment cmt"># File lib/caty/option.rb, line 68</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">grep!</span>( <span class="ruby-identifier">args</span> )
         <span class="ruby-identifier">rex</span>   = <span class="ruby-node">%r{^#{self.prefix}#{@name}(?:=(.+))?$}</span>
         <span class="ruby-identifier">index</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span> <span class="ruby-identifier">rex</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">arg</span> }
@@ -253,21 +257,21 @@ this option.
         </div>
       </div>
 
-      <div id="method-M000017" class="method-detail">
-        <a name="M000017"></a>
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
 
         <div class="method-heading">
-          <a href="#M000017" class="method-signature">
+          <a href="#M000018" class="method-signature">
           <span class="method-name">to_s</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000017-source">
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty/option.rb, line 79</span>
+<span class="ruby-comment cmt"># File lib/caty/option.rb, line 83</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
         <span class="ruby-node">&quot;[#{self.prefix}#{@name}=#{
             @default.nil? ? '' : @default.inspect
@@ -280,25 +284,25 @@ this option.
 
       <h3 class="section-bar">Protected Instance methods</h3>
 
-      <div id="method-M000018" class="method-detail">
-        <a name="M000018"></a>
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
 
         <div class="method-heading">
-          <a href="#M000018" class="method-signature">
+          <a href="#M000019" class="method-signature">
           <span class="method-name">prefix</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Defines the <a href="Option.html#M000018">prefix</a> of this option. May be
+Defines the <a href="Option.html#M000019">prefix</a> of this option. May be
 overwritten by subclasses.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000018-source">
+            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000019-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty/option.rb, line 91</span>
+<span class="ruby-comment cmt"># File lib/caty/option.rb, line 95</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prefix</span>
         <span class="ruby-value str">'-'</span>
     <span class="ruby-keyword kw">end</span>

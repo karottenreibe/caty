@@ -90,14 +90,26 @@ which will be callable via
     app method_name
 </pre>
 <p>
-Use the global_options() and task_options() methods to add global or
+Use the <a href="Caty.html#M000005">global_options</a>() and <a
+href="Caty.html#M000004">task_options</a>() methods to add global or
 task-specific options.
 </p>
 <p>
-Use the map() method to create aliases for tasks.
+Use the ::<a href="Caty.html#M000006">map</a>() method to create aliases
+for tasks.
 </p>
 <p>
 Use the ::<a href="Caty.html#M000001">start!</a>() method to start parsing.
+</p>
+<p>
+Use ::<a href="Caty.html#M000008">default</a>() to set a <a
+href="Caty.html#M000008">default</a> task.
+</p>
+<p>
+Use ::<a href="Caty.html#M000007">before</a>() and ::<a
+href="Caty.html#M000009">after</a>() to define Rails-style <a
+href="Caty.html#M000007">before</a> and <a
+href="Caty.html#M000009">after</a> filters.
 </p>
 
     </div>
@@ -109,12 +121,16 @@ Use the ::<a href="Caty.html#M000001">start!</a>() method to start parsing.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
+      <a href="#M000009">after</a>&nbsp;&nbsp;
       <a href="#M000002">append</a>&nbsp;&nbsp;
-      <a href="#M000006">initialize_instance</a>&nbsp;&nbsp;
-      <a href="#M000004">is_task_argument_error</a>&nbsp;&nbsp;
-      <a href="#M000003">method_added</a>&nbsp;&nbsp;
-      <a href="#M000005">reset_decorators</a>&nbsp;&nbsp;
+      <a href="#M000007">before</a>&nbsp;&nbsp;
+      <a href="#M000003">cut</a>&nbsp;&nbsp;
+      <a href="#M000008">default</a>&nbsp;&nbsp;
+      <a href="#M000010">desc</a>&nbsp;&nbsp;
+      <a href="#M000005">global_options</a>&nbsp;&nbsp;
+      <a href="#M000006">map</a>&nbsp;&nbsp;
       <a href="#M000001">start!</a>&nbsp;&nbsp;
+      <a href="#M000004">task_options</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -158,7 +174,7 @@ Class <a href="Caty/TaskHash.html" class="link">Caty::TaskHash</a><br />
           <td class="context-item-name">global_options</td>
           <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
           <td class="context-item-desc">
-Returns the global options for this invocation as a OpenHash.
+Returns the global options for this invocation as an OpenHash.
 
 </td>
         </tr>
@@ -210,7 +226,7 @@ subtype, thus allowing you to add new tasks in different source files.
             onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000002-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty.rb, line 111</span>
+<span class="ruby-comment cmt"># File lib/caty.rb, line 116</span>
         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">append</span>( <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
         <span class="ruby-keyword kw">end</span>
@@ -233,17 +249,17 @@ subtype, thus allowing you to add new tasks in different source files.
 Starts command line parsing.
 </p>
 <pre>
-    Subclass.start! arguments_array
+    Subclass.start!( arguments_array )
     Subclass.start!
 </pre>
 <p>
-Returns 0 on success, a negative Integer when an ArgumentError is detected.
+Returns true on success, false when an ArgumentError was detected.
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000001-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty.rb, line 55</span>
+<span class="ruby-comment cmt"># File lib/caty.rb, line 60</span>
         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start!</span>( <span class="ruby-identifier">args</span> = <span class="ruby-constant">ARGV</span> )
             <span class="ruby-identifier">initialize_instance</span>
 
@@ -290,59 +306,72 @@ Returns 0 on success, a negative Integer when an ArgumentError is detected.
 
       <h3 class="section-bar">Protected Class methods</h3>
 
-      <div id="method-M000006" class="method-detail">
-        <a name="M000006"></a>
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
 
         <div class="method-heading">
-          <a href="#M000006" class="method-signature">
-          <span class="method-name">initialize_instance</span><span class="method-args">()</span>
+          <a href="#M000009" class="method-signature">
+          <span class="method-name">after</span><span class="method-args">( &amp;block )</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Initializes the tasks, options and global options storage instance
-variables.
+Defines a block of code that will be executed right <a
+href="Caty.html#M000009">after</a> any task is called. <em>self</em> will
+point to the <a href="Caty.html">Caty</a> instance and the name of the task
+(Symbol) will be given as the only argument.
 </p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000006-source">
+<p>
+NOTE: this code will not be executed if an error occured during task
+execution.
+</p>
 <pre>
-<span class="ruby-comment cmt"># File lib/caty.rb, line 309</span>
-        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_instance</span>
-            <span class="ruby-ivar">@task_options</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Caty</span><span class="ruby-operator">::</span><span class="ruby-constant">OptionArray</span>.<span class="ruby-identifier">new</span>
-            <span class="ruby-ivar">@global_options</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Caty</span><span class="ruby-operator">::</span><span class="ruby-constant">OptionArray</span>.<span class="ruby-identifier">new</span>
-            <span class="ruby-ivar">@tasks</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Caty</span><span class="ruby-operator">::</span><span class="ruby-constant">TaskHash</span>.<span class="ruby-identifier">new</span>
+    after do |task|
+        puts task
+    end
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty.rb, line 244</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">after</span>( <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
+            <span class="ruby-ivar">@after</span> = <span class="ruby-identifier">block</span>
         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000004" class="method-detail">
-        <a name="M000004"></a>
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
 
         <div class="method-heading">
-          <a href="#M000004" class="method-signature">
-          <span class="method-name">is_task_argument_error</span><span class="method-args">( backtrace, task_name )</span>
+          <a href="#M000007" class="method-signature">
+          <span class="method-name">before</span><span class="method-args">( &amp;block )</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Tests whether the given backtrace is from a argument error in task
-invocation.
+Defines a block of code that will be executed right <a
+href="Caty.html#M000007">before</a> any task is called. <em>self</em> will
+point to the <a href="Caty.html">Caty</a> instance and the name of the task
+(Symbol) will be given as the only argument.
 </p>
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000004-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty.rb, line 288</span>
-        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_task_argument_error</span>( <span class="ruby-identifier">backtrace</span>, <span class="ruby-identifier">task_name</span> )
-            <span class="ruby-identifier">backtrace</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">end_with?</span>(<span class="ruby-node">&quot;in `#{task_name}'&quot;</span>) <span class="ruby-keyword kw">and</span>  <span class="ruby-comment cmt"># inside the task method</span>
-            <span class="ruby-identifier">backtrace</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">end_with?</span>(<span class="ruby-value str">&quot;in `call'&quot;</span>)         <span class="ruby-keyword kw">and</span>  <span class="ruby-comment cmt"># in Task#call</span>
-            <span class="ruby-identifier">backtrace</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">end_with?</span>(<span class="ruby-value str">&quot;in `execute'&quot;</span>)      <span class="ruby-keyword kw">and</span>  <span class="ruby-comment cmt"># in Task#execute</span>
-            <span class="ruby-identifier">backtrace</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">end_with?</span>(<span class="ruby-value str">&quot;in `start!'&quot;</span>)            <span class="ruby-comment cmt"># in Caty::start!</span>
+    before do |task|
+        puts task
+    end
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty.rb, line 218</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">before</span>( <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
+            <span class="ruby-ivar">@before</span> = <span class="ruby-identifier">block</span>
         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
@@ -354,33 +383,114 @@ invocation.
 
         <div class="method-heading">
           <a href="#M000003" class="method-signature">
-          <span class="method-name">method_added</span><span class="method-args">( meth )</span>
+          <span class="method-name">cut</span><span class="method-args">( description )</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Metaprogramming. See Module#method_added Creates a new task, if the method
-that was added was public.
+Can be used to <a href="Caty.html#M000003">cut</a> off whitespace in front
+of <a href="Caty.html#M000010">desc</a>() descriptions, so it can be
+written more nicely in the source.
+</p>
+<p>
+Describing this method accurately is terribly complicated, so here&#8216;s
+an example:
+</p>
+<pre>
+  cut(&quot;
+      first
+        second
+      third
+  &quot;)
+</pre>
+<p>
+produces the string
+</p>
+<pre>
+  &quot;first\n  second\nthird&quot;
+</pre>
+<p>
+Notice the preserved whitespace in front of &#8216;second&#8217;!
 </p>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000003-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty.rb, line 268</span>
-        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_added</span>( <span class="ruby-identifier">meth</span> )
-            <span class="ruby-identifier">initialize_instance</span>
-            <span class="ruby-identifier">name</span> = <span class="ruby-identifier">meth</span>.<span class="ruby-identifier">to_s</span>
+<span class="ruby-comment cmt"># File lib/caty.rb, line 146</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cut</span>( <span class="ruby-identifier">description</span> )
+            <span class="ruby-identifier">description</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-regexp re">%r{\A\n+}</span>, <span class="ruby-value str">''</span>)
+            <span class="ruby-identifier">description</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%r{\A([ \t]*)}</span>
 
-            <span class="ruby-comment cmt"># only add public methods as tasks</span>
-            <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">public_instance_methods</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">name</span>)
-                <span class="ruby-identifier">method</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">instance_method</span>(<span class="ruby-identifier">name</span>)
-                <span class="ruby-identifier">task</span> = <span class="ruby-ivar">@tasks</span>[<span class="ruby-identifier">meth</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Caty</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">meth</span>, <span class="ruby-identifier">method</span>, <span class="ruby-ivar">@task_options</span>)
-                <span class="ruby-identifier">task</span>.<span class="ruby-identifier">description</span> = <span class="ruby-ivar">@description</span>
-                <span class="ruby-identifier">task</span>.<span class="ruby-identifier">usage</span> = <span class="ruby-ivar">@usage</span>
+            <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">$1</span>.<span class="ruby-identifier">nil?</span>
+                <span class="ruby-identifier">space</span> = <span class="ruby-identifier">$1</span>
+                <span class="ruby-identifier">description</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-node">%r{^#{space}}</span>, <span class="ruby-value str">''</span>)
+            <span class="ruby-keyword kw">end</span>
 
-                <span class="ruby-ivar">@tasks</span>[<span class="ruby-identifier">meth</span>] = <span class="ruby-identifier">task</span>
-                <span class="ruby-identifier">reset_decorators</span>
+            <span class="ruby-identifier">description</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">%r{\n\Z}</span>, <span class="ruby-value str">''</span>)
+        <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="#M000008" class="method-signature">
+          <span class="method-name">default</span><span class="method-args">( task )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Defines a <a href="Caty.html#M000008">default</a> task.
+</p>
+<pre>
+    default :task
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty.rb, line 227</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default</span>( <span class="ruby-identifier">task</span> )
+            <span class="ruby-ivar">@default</span> = <span class="ruby-identifier">task</span>.<span class="ruby-identifier">to_sym</span>
+        <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="#M000010" class="method-signature">
+          <span class="method-name">desc</span><span class="method-args">( usage, description = nil )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Decorates the next definition with a description and optionally a usage
+string.
+</p>
+<pre>
+    desc 'usage info', 'long description'
+    desc 'long description'
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty.rb, line 255</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">desc</span>( <span class="ruby-identifier">usage</span>, <span class="ruby-identifier">description</span> = <span class="ruby-keyword kw">nil</span> )
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">description</span>.<span class="ruby-identifier">nil?</span>
+                <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">usage</span>
+            <span class="ruby-keyword kw">else</span>
+                <span class="ruby-ivar">@description</span>, <span class="ruby-ivar">@usage</span> = <span class="ruby-identifier">description</span>, <span class="ruby-identifier">usage</span>
             <span class="ruby-keyword kw">end</span>
         <span class="ruby-keyword kw">end</span>
 </pre>
@@ -393,23 +503,106 @@ that was added was public.
 
         <div class="method-heading">
           <a href="#M000005" class="method-signature">
-          <span class="method-name">reset_decorators</span><span class="method-args">()</span>
+          <span class="method-name">global_options</span><span class="method-args">( &amp;block )</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Resets the decorators applied via desc(), usage() and task_options().
+Adds global options.
 </p>
+<p>
+The first option will be decorated with the latest description defined via
+<a href="Caty.html#M000010">desc</a>().
+</p>
+<pre>
+    global_options do
+        desc('description')
+        string  'option_name' =&gt; 'default'
+
+        desc('desc2')
+        integer 'option2'
+    end
+</pre>
           <p><a class="source-toggle" href="#"
             onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000005-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caty.rb, line 299</span>
-        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_decorators</span>
-            <span class="ruby-ivar">@task_options</span> = <span class="ruby-constant">OptionArray</span>.<span class="ruby-identifier">new</span>
-            <span class="ruby-ivar">@description</span> = <span class="ruby-keyword kw">nil</span>
-            <span class="ruby-ivar">@usage</span> = <span class="ruby-keyword kw">nil</span>
+<span class="ruby-comment cmt"># File lib/caty.rb, line 184</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">global_options</span>( <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span> )
+            <span class="ruby-identifier">initialize_instance</span>
+            <span class="ruby-identifier">constructor</span> = <span class="ruby-constant">Caty</span><span class="ruby-operator">::</span><span class="ruby-constant">OptionConstructor</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Caty</span><span class="ruby-operator">::</span><span class="ruby-constant">GlobalOption</span>)
+            <span class="ruby-ivar">@global_options</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">constructor</span>.<span class="ruby-identifier">construct</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>))
+        <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">map</span><span class="method-args">( mapping_hash )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates aliases for tasks.
+</p>
+<pre>
+    map :alias            =&gt; :task_name
+    map %w{alias1 alias2} =&gt; :task_name
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty.rb, line 196</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">map</span>( <span class="ruby-identifier">mapping_hash</span> )
+            <span class="ruby-identifier">initialize_instance</span>
+
+            <span class="ruby-identifier">mapping_hash</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mappings</span>,<span class="ruby-identifier">target</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">mappings</span> = [<span class="ruby-identifier">mappings</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">mappings</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+
+                <span class="ruby-identifier">mappings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mapping</span><span class="ruby-operator">|</span>
+                    <span class="ruby-ivar">@tasks</span>[<span class="ruby-identifier">mapping</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-constant">Caty</span><span class="ruby-operator">::</span><span class="ruby-constant">Indirection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">mapping</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-identifier">target</span>.<span class="ruby-identifier">to_sym</span>)
+                <span class="ruby-keyword kw">end</span>
+            <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">task_options</span><span class="method-args">( options_hash )</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Adds options for the task defined next.
+</p>
+<pre>
+  task_options :option_name =&gt; default, :option2 ...
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caty.rb, line 163</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">task_options</span>( <span class="ruby-identifier">options_hash</span> )
+            <span class="ruby-identifier">initialize_instance</span>
+            <span class="ruby-identifier">options_hash</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span>,<span class="ruby-identifier">default</span><span class="ruby-operator">|</span>
+                <span class="ruby-ivar">@task_options</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Caty</span><span class="ruby-operator">::</span><span class="ruby-constant">Option</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-identifier">default</span>)
+            <span class="ruby-keyword kw">end</span>
         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
