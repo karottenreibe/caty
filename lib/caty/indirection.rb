@@ -1,3 +1,6 @@
+#
+# Contains the Indirection class.
+#
 
 #
 # Used to map things to other tasks and resolve

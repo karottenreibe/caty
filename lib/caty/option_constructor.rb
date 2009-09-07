@@ -1,3 +1,6 @@
+#
+# Contains the OptionConstructor class.
+#
 
 #
 # Constructs options using a DSL, e.g:
@@ -9,6 +12,9 @@
 #        desc('desc2')
 #        integer :nother_one
 #   end
+#
+# Used by Caty when Caty::global_options() is
+# called.
 #
 class Caty::OptionConstructor
 
@@ -34,7 +40,7 @@ class Caty::OptionConstructor
     end
 
     #
-    # Create a new OptionConstructor that constructs
+    # Creates a new OptionConstructor that constructs
     # the given options of the given class.
     #
     def initialize( option_klass )
@@ -55,6 +61,7 @@ class Caty::OptionConstructor
 
     #
     # Emulates the type methods, e.g:
+    #
     #   string :name, 'default'
     #
     def method_missing( meth, *args, &block )

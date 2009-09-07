@@ -1,7 +1,11 @@
+#
+# Contains the TaskHash class.
+#
+
 require 'delegate'
 
 #
-# A hash that preserves the order of insertion.
+# A hash that preserves the order of task insertion.
 #
 class Caty::TaskHash < DelegateClass(Hash)
 

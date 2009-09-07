@@ -1,6 +1,10 @@
+#
+# Contains the Task class.
+#
 
 #
 # Represents a single task.
+#
 # A Task object is created for every public method created
 # in the Caty subclass.
 #
@@ -22,7 +26,8 @@ class Caty::Task
 
     #
     # Tries to remove the options defined for this task
-    # from the args Array.
+    # from the args array.
+    #
     # Returns an OpenHash containing the retrieved
     # options.
     #
@@ -41,14 +46,14 @@ class Caty::Task
 
     #
     # Resolving end point.
-    # See Indirection#resolve() for more information.
+    # See Caty::Indirection#resolve() for more information.
     #
     def resolve( task_hash )
         self
     end
 
     #
-    # Returns an array of the string representation of the task and its
+    # Returns a string representation of the task and its
     # options to be used by the help system.
     #
     def to_help

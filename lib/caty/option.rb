@@ -1,10 +1,14 @@
+#
+# Contains the Option class.
+#
 
 #
 # Represents a single option.
+#
 # An Option object is created for every option
 # specified via Caty#task_options().
 # The sum of all options parsed is accessible
-# via the Caty#options() method.
+# via the Caty#task_options() method.
 #
 class Caty::Option
 
@@ -25,7 +29,7 @@ class Caty::Option
     # - :integer
     #   nil is the default, any given argument will be coerced
     #   into a integer value.
-    # - a Integer, String or Boolean value
+    # - an Integer, String or Boolean value
     #   the passed value is the default value, any given argument
     #   will be coerced into the given type.
     # - any other value will be treated as if a String had been

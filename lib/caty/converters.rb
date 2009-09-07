@@ -1,3 +1,6 @@
+#
+# Contains all the option converters.
+#
 
 #
 # Base class for all option converters.

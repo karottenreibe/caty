@@ -1,6 +1,10 @@
+#
+# Contains the GlobalOption class.
+#
 
 #
 # Represents a single global option.
+#
 # A GlobalOption object is created for every option
 # specified via Caty::global_options().
 # The sum of all global options parsed is accessible

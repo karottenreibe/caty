@@ -5,7 +5,7 @@
 # To find out more about caty, file bug reports and other stuff,
 # go to http://karottenreibe.github.com/caty.
 #
-# Inspired by Thor (http://yehudakatz.com/2008/05/12/by-thors-hammer)
+# Inspired by Thor (http://www.yehudakatz.com/2008/05/12/by-thors-hammer)
 #
 # Kudos to Yehuda Katz.
 #
@@ -22,10 +22,15 @@
 # Use the #global_options() and #task_options()
 # methods to add global or task-specific options.
 #
-# Use the #map() method to create aliases for
+# Use the ::map() method to create aliases for
 # tasks.
 #
 # Use the ::start!() method to start parsing.
+#
+# Use ::default() to set a default task.
+#
+# Use ::before() and ::after() to define Rails-style
+# before and after filters.
 #
 class Caty
 
@@ -37,7 +42,7 @@ class Caty
 
     #
     # Returns the global options for this invocation as
-    # a OpenHash.
+    # an OpenHash.
     #
     attr_accessor :global_options
 
@@ -46,11 +51,11 @@ class Caty
         #
         # Starts command line parsing.
         #
-        #     Subclass.start! arguments_array
+        #     Subclass.start!( arguments_array )
         #     Subclass.start!
         #
-        # Returns 0 on success, a negative Integer when
-        # an ArgumentError is detected.
+        # Returns true on success, false when an ArgumentError
+        # was detected.
         # 
         def start!( args = ARGV )
             initialize_instance
@@ -115,7 +120,7 @@ class Caty
         #
         # Methods to be used by the inheriting class.
         #
-        private
+        protected
 
         #
         # Can be used to cut off whitespace in front of
@@ -151,9 +156,9 @@ class Caty
         end
 
         #
-        # Adds options for the following task.
+        # Adds options for the task defined next.
         #
-        #     task_options :option_name => default, :option2 ...
+        #   task_options :option_name => default, :option2 ...
         #
         def task_options( options_hash )
             initialize_instance
@@ -164,7 +169,8 @@ class Caty
 
         #
         # Adds global options.
-        # The first option will be decorated with the last description
+        #
+        # The first option will be decorated with the latest description
         # defined via #desc().
         #
         #     global_options do
@@ -229,7 +235,7 @@ class Caty
         # the task (Symbol) will be given as the only argument.
         #
         # NOTE: this code will not be executed if an error occured
-        # during task execution
+        # during task execution.
         #
         #     after do |task|
         #         puts task
@@ -257,12 +263,13 @@ class Caty
         #
         # Methods to be used by Caty itself.
         #
-        protected
+        private
 
         #
         # Metaprogramming.
-        # See Module#method_added
-        # Creates a new task, if the method that was added was
+        #
+        # See Module#method_added.
+        # Creates a new task, if the method that was added, was
         # public.
         #
         def method_added( meth )
@@ -283,7 +290,7 @@ class Caty
 
         #
         # Tests whether the given backtrace is from
-        # a argument error in task invocation.
+        # an argument error in task invocation.
         #
         def is_task_argument_error( backtrace, task_name )
             backtrace[0].end_with?("in `#{task_name}'") and  # inside the task method
@@ -293,8 +300,7 @@ class Caty
         end
         
         #
-        # Resets the decorators applied via #desc(),
-        # #usage() and #task_options().
+        # Resets the decorators applied via #desc() and #task_options().
         #
         def reset_decorators
             @task_options = OptionArray.new
@@ -303,7 +309,7 @@ class Caty
         end
 
         #
-        # Initializes the tasks, options and global options
+        # Initializes the tasks', options' and global options'
         # storage instance variables.
         #
         def initialize_instance

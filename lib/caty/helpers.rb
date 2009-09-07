@@ -1,3 +1,7 @@
+#
+# Contains the Helpers module that will be
+# mixed into a number of classes.
+#
 
 module Caty::Helpers
 

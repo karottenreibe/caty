@@ -1,5 +1,13 @@
+#
+# Contains the objects related to the help feature.
+#
 
+#
+# Will be mixed into the Caty class.
+#
 module Caty::HelpSystem
+
+    protected
 
     #
     # Interface for Caty's help system.
@@ -33,14 +41,14 @@ module Caty::HelpSystem
         end
     end
 
-    protected
+    private
 
     #
     # Displays the auto-generated help for all tasks,
     # options and global options known to Caty.
     #
     def help_overview
-        task_descs    = self.taskarray.map(&:to_help)
+        task_descs    = @tasks.to_a.reject { |task| task.is_a?(Caty::Indirection) }.map(&:to_help)
         goption_descs = @global_options.map(&:to_help)
         column_width  = (task_descs + goption_descs).map(&:first).map(&:length).max
 
@@ -68,7 +76,6 @@ module Caty::HelpSystem
     def token_help( token )
         goptions = @global_options
         tasks    = @tasks.to_a
-
         item     = @tasks.resolve(token) || goptions.find { |item| item.name == token }
 
         if item.nil?
@@ -94,9 +101,6 @@ module Caty::HelpSystem
     # Returns the tasks as an array, with all indirections and removed.
     #
     def taskarray
-        @tasks.to_a.reject do |task|
-            task.is_a?(Caty::Indirection)
-        end
     end
 
 end

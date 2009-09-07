@@ -1,3 +1,6 @@
+#
+# Contains error classes used by Caty.
+#
 
 class Caty::NoSuchTaskError < ArgumentError
 end
