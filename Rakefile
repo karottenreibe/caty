@@ -13,7 +13,7 @@ Jeweler::Tasks.new do |gem|
     gem.email = 'karottenreibe@gmail.com'
     gem.homepage = 'http://github.com/karottenreibe/caty'
     gem.authors = ['Fabian Streitel']
-    gem.rubyforge_project = 'caty'
+    gem.rubyforge_project = 'k-gems'
     gem.add_dependency('ohash')
 end
 
