@@ -9,17 +9,17 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Fabian Streitel"]
-  s.date = %q{2009-09-03}
+  s.date = %q{2009-09-08}
   s.description = %q{Caty is a command line parser that maps arguments to instance methods}
   s.email = %q{karottenreibe@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
-     "README.markown"
+     "README.markdown"
   ]
   s.files = [
     "HISTORY.markdown",
      "LICENSE.txt",
-     "README.markown",
+     "README.markdown",
      "Rakefile",
      "VERSION",
      "caty.gemspec",
@@ -46,7 +46,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/karottenreibe/caty}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{caty}
+  s.rubyforge_project = %q{k-gems}
   s.rubygems_version = %q{1.3.4}
   s.summary = %q{Caty is a command line parser that maps arguments to instance methods}
   s.test_files = [
