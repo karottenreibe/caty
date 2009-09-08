@@ -14,8 +14,8 @@ have questions or want to file a bug report etc:
 *   If you want to write a patch, add a feature etc., [fork me on GitHub] [fork].
 
 
-[github]:           http://github.com/karottenreibe/caty
-[issuetracker]:     http://github.com/karottenreibe/caty/issues
-[fork]:             http://github.com/karottenreibe/caty/fork
-[email]:            /caty/email.html
+[github]:           http://github.com/karottenreibe/caty            "Caty's GitHub repo"
+[issuetracker]:     http://github.com/karottenreibe/caty/issues     "Caty's issue tracker"
+[fork]:             http://github.com/karottenreibe/caty/fork       "Fork this project on GitHub!"
+[email]:            /caty/email                                     "My email address is listed here"
 
