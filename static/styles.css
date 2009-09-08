@@ -56,11 +56,14 @@ code {
       text-decoration: none; }
 
 #index {
-  width: 500px;
+  width: 700px;
   text-align: center;
-  margin: auto; }
+  margin: auto;
+  margin-top: 50px; }
   #index h1 {
-    font-size: 3em;
+    font-size: 250px;
+    margin: 0px;
+    font-family: serif;
     color: 10px; }
 
 #content {
