@@ -68,7 +68,9 @@ code {
 
 #footer {
   border-top: 4px solid #007711;
+  margin-bottom: 10px;
   clear: both;
   padding: 10px; }
   #footer .copyleft {
     float: right; }
+
