@@ -30,6 +30,10 @@ code {
 .strong {
   font-weight: bold; }
 
+#header #forkme {
+  position: absolute;
+  top: 0px
+  right: 0px; }
 #header #logo {
   width: 700px;
   text-align: center;
