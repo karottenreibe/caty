@@ -321,15 +321,15 @@ All those were taken from <http://www.morguefile.com> and are licensed under the
 [morgueFile Free License] [mfflicense].
 
 
-[kitty.rb]:   /kitty/kitty.rb                                       "The Kitty example application"
+[kitty.rb]:   /caty/kitty/kitty.rb                                       "The Kitty example application"
 [sleeping]:   http://www.morguefile.com/archive/display/617825      "The picture of the sleeping kitten"
 [catmouse]:   http://www.morguefile.com/archive/display/77929       "The picture of the cat and the computer mouse"
 [lion]:       http://www.morguefile.com/archive/display/72756       "The uncropped picture of the lion"
 [fairy]:      http://morguefile.com/archive/display/148482          "The picture of the fairy"
 [mfflicense]: http://morguefile.com/license/morguefile/             "The morgueFile Free License"
 
-[img-catmouse]: /kitty/catandmouse.jpg
-[img-lion]:     /kitty/lion.jpg
-[img-sleeping]: /kitty/sleeping.jpg
-[img-fairy]:    /kitty/fairy.jpg
+[img-catmouse]: /caty/kitty/catandmouse.jpg
+[img-lion]:     /caty/kitty/lion.jpg
+[img-sleeping]: /caty/kitty/sleeping.jpg
+[img-fairy]:    /caty/kitty/fairy.jpg
 

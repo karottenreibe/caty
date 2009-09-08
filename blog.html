@@ -7,7 +7,7 @@ layout: layout
   {% for post in site.posts %}
     <li>
       <span class='meta'>{{ post.date | date_to_string }}</span>
-      <a class='link' href='{{ post.url }}' title='{{ post.title }}'>{{ post.title }}</a>
+      <a class='link' href='/caty{{ post.url }}' title='{{ post.title }}'>{{ post.title }}</a>
     </li>
   {% endfor %}
 </ul>

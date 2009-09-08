@@ -17,5 +17,5 @@ have questions or want to file a bug report etc:
 [github]:           http://github.com/karottenreibe/caty
 [issuetracker]:     http://github.com/karottenreibe/caty/issues
 [fork]:             http://github.com/karottenreibe/caty/fork
-[email]:            /email.html
+[email]:            /caty/email.html
 
