@@ -2,5 +2,3 @@
 pygments: true
 permalink: pretty
 
-post_defaults:
-  layout: post
