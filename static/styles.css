@@ -55,6 +55,14 @@ code {
       background-color: #55bb66;
       text-decoration: none; }
 
+#index {
+  width: 500px;
+  text-align: center;
+  margin: auto; }
+  #index h1 {
+    font-size: 3em;
+    color: 10px; }
+
 #content {
   margin: auto;
   width: 900px; }
