@@ -71,7 +71,7 @@ Both helped me find the way in this topic.
 [thor]:          http://yehudakatz.com/2008/05/12/by-thors-hammer/  "The great Thor, an inspiration for Caty"
 [rake]:          http://rake.rubyforge.org/                         "The great Rake, an inspiration for Caty"
 
-[presentation]:  /caty/presenty                                          "A presentation about Caty -- great for a quick introduction"
+[presentation]:  /caty/presentation                                          "A presentation about Caty -- great for a quick introduction"
 [kitty]:         /caty/kitty                                             "The kitty application -- a small show-off of Caty's functionalities"
 [comparison]:    /caty/comparison.html                                   "A comparison of Caty and other Ruby command line parsers"
 [rdoc]:          /caty/rdow                                              "Caty's rdoc documentation"
