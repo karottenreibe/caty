@@ -61,8 +61,8 @@ and can automatically parse options.
 
 ## Install ##
 
-* sudo gem install karottenreibe-caty --source http://gems.github.com
-* sudo gem install caty
+    sudo gem install karottenreibe-caty --source http://gems.github.com
+    sudo gem install caty
 
 
 ## License ##
