@@ -48,6 +48,12 @@ Also, there's the [rdoc] documentation.
 And finally you could use any of the other [resources].
 
 
+# Installing Caty #
+
+    gem install karottenreibe-caty --source http://gems.github.com
+    gem install karottenreibe
+
+
 # Applications that use Caty #
 
 These applications use Caty for their command line parsing:
