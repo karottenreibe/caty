@@ -11,7 +11,7 @@ Jeweler::Tasks.new do |gem|
     gem.summary = gem.description =
         'Caty is a command line parser that maps arguments to instance methods'
     gem.email = 'karottenreibe@gmail.com'
-    gem.homepage = 'http://github.com/karottenreibe/caty'
+    gem.homepage = 'http://karottenreibe.github.com/caty'
     gem.authors = ['Fabian Streitel']
     gem.rubyforge_project = 'k-gems'
     gem.add_dependency('ohash')
